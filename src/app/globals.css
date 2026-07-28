@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-sanctuary: #faf7f2;
+    --bg-card: #ffffff;
+    --forest-deep: #193323;
+    --forest-mid: #254631;
+    --sage-primary: #5f8067;
+    --sage-light: #e5ece6;
+    --cream-warm: #f5efe6;
+    --gold-accent: #c9a44c;
+    --gold-glow: rgba(201, 164, 76, 0.25);
+    --text-primary: #1c2620;
+    --text-muted: #536458;
+    --border-soft: rgba(95, 128, 103, 0.15);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-sanctuary);
+    color: var(--text-primary);
+    selection-background-color: var(--sage-light);
+  }
+
+  body {
+    background-color: #faf7f2;
+    color: #1c2620;
+    overflow-x: hidden;
+    font-family: var(--font-sans), sans-serif;
+  }
+}
+
+.font-serif-luxury {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.font-script-poetry {
+  font-family: var(--font-script), cursive;
+}
+
+/* Glassmorphism Sanctuary Card */
+.glass-sanctuary {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 20px 40px -15px rgba(25, 51, 35, 0.05);
+}
+
+.glass-sanctuary-dark {
+  background: rgba(25, 51, 35, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201, 164, 76, 0.2);
+  color: #faf7f2;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #d4af37 0%, #b8860b 50%, #e6ca65 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.forest-gradient-bg {
+  background: linear-gradient(180deg, #193323 0%, #112418 100%);
+}
+
+.hero-sunbeam-bg {
+  background: radial-gradient(circle at 50% 20%, rgba(201, 164, 76, 0.12) 0%, rgba(229, 236, 230, 0.5) 45%, rgba(250, 247, 242, 1) 80%);
+}
+
+/* Leaf particle float animation */
+@keyframes floatLeaf {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-25px) rotate(15deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.8;
+  }
+}
+
+.animate-float-leaf {
+  animation: floatLeaf 8s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatLeaf 12s ease-in-out infinite reverse;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #faf7f2;
+}
+::-webkit-scrollbar-thumb {
+  background: #5f8067;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #193323;
+}
