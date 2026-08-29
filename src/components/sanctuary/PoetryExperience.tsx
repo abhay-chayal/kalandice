@@ -19,14 +19,14 @@ interface Poem {
 const poemsData: Poem[] = [
   {
     id: "poem-1",
-    title: "Quiet Waters of Psalm 23",
+    title: "Quiet waters of Psalms 23",
     category: "Healing & Peace",
-    excerpt: "When the noise of the world grows loud and deep, He leads my heart to quiet streams where weary spirits sleep...",
+    excerpt: "When the noise of the world grows loud and deep, He leads my heart to quiet streams...",
     fullContent: [
       "When the noise of the world grows loud and deep,",
-      "He leads my heart to quiet streams where weary spirits sleep.",
+      "He leads my heart to quiet streams",
       "The shepherd knows the path I cannot see,",
-      "In green pastures, His peace surrounds me.",
+      "In green pastures His peace surrounds me.",
       "I lack no good thing in His sacred care,",
       "Every heavy burden lifted into prayer."
     ],
@@ -36,13 +36,13 @@ const poemsData: Poem[] = [
   },
   {
     id: "poem-2",
-    title: "Surrendering Anxiety at Dawn",
+    title: "Surrendering Anxiety: Poem Rewritten",
     category: "Anxiety & Fear",
-    excerpt: "Morning sunbeams cut through yesterday's heavy mist, No worry can remain where His gentle mercy is kissed...",
+    excerpt: "As the Morning sunbeams cut through yesterday's heavy dew, No worry can remain where His gentle presence is anew...",
     fullContent: [
-      "Morning sunbeams cut through yesterday's heavy mist,",
-      "No worry can remain where His gentle mercy is kissed.",
-      "Hands unclasped from control and fear,",
+      "As the Morning sunbeams cut through yesterday's heavy dew,",
+      "No worry can remain where His gentle presence is anew.",
+      "Hands unclasped from anxiety and fear,",
       "Knowing the Lord of comfort is standing near.",
       "Breath in peace, release the strain,",
       "His love washes over every hidden pain."
@@ -55,14 +55,14 @@ const poemsData: Poem[] = [
     id: "poem-3",
     title: "Trusting the Season of Waiting",
     category: "Faith & Trust",
-    excerpt: "Roots grow deep in the silence underground, Long before the blooming flower is ever found...",
+    excerpt: "Roots grow deep in silence underground, Long before a blooming flower is found...",
     fullContent: [
-      "Roots grow deep in the silence underground,",
-      "Long before the blooming flower is ever found.",
+      "Roots grow deep in silence underground,",
+      "Long before a blooming flower is found.",
       "Do not mistake delay for a promise denied,",
-      "The Master Gardener works faithfully by your side.",
-      "In every season of waiting, faith takes wings,",
-      "Trusting in the joy that tomorrow brings."
+      "For we have a trustworthy gardener by our side,",
+      "faithfully working in every season",
+      "know that you can trust and lean on Him."
     ],
     reflection: "Reflect on how past seasons of waiting built strength you carry today.",
     affirmation: "My waiting is not wasted. God is preparing something beautiful in His timing.",
@@ -91,7 +91,6 @@ export function PoetryExperience() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [activePoem, setActivePoem] = useState<Poem | null>(null);
   const [savedPoemIds, setSavedPoemIds] = useState<string[]>([]);
-  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const categories = ["All", "Healing & Peace", "Anxiety & Fear", "Faith & Trust", "Love & Waiting"];
 
@@ -269,7 +268,7 @@ export function PoetryExperience() {
               <div className="flex items-center justify-between">
                 <button
                   onClick={(e) => toggleSavePoem(activePoem.id, e)}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#193323] text-[#D4AF37] text-xs font-semibold shadow-md"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#193323] text-[#D4AF37] text-xs font-semibold"
                 >
                   <Bookmark className="w-4 h-4 fill-[#D4AF37]" />
                   <span>Save Affirmation</span>

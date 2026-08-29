@@ -8,18 +8,18 @@ export function ResourcesSection() {
   const spotifyPlaylists = [
     {
       title: "Encouraging Poetics Vol. 1",
-      desc: "Peaceful acoustic worship, soft piano melodies, and morning quiet hour tracks.",
-      url: "https://open.spotify.com/playlist/4pInHfmCCs7w4F8M0pafzc?si=8o2kOhr3T1KKlMb32ZxcHQ&utm_source=copy-link&pi=H6tZcL7YS52LI",
+      desc: "Worship music to help you get up and go, feeling refreshed and ready to take on the day.",
+      url: "https://open.spotify.com/playlist/5NhC7PPBPa2SRXaVq8O6FP?si=GBr_WJ5RSz-jSs43lH1ABA&utm_source=copy-link&pi=wUxUdER7QV2u6",
     },
     {
       title: "Gentle Hope & Healing",
       desc: "Instrumental sanctuary sounds to soothe anxiety and encourage quiet prayer.",
-      url: "https://open.spotify.com/playlist/5NhC7PPBPa2SRXaVq8O6FP?si=7HqnH5gGS4iyzNeYeqHTCA&utm_source=copy-link&pi=rihqfCL6Tm-uB",
+      url: "https://open.spotify.com/playlist/71vRw39TkJi3tgLHaZ3zon?si=31QSCwxkRQ-YqbTjASzIXQ&utm_source=copy-link&pi=9kwdiGVsR2q4N",
     },
     {
       title: "Faithful Seasons",
       desc: "Uplifting spiritual songs for times of transition, waiting, and renewal.",
-      url: "https://open.spotify.com/playlist/3Vl5vMo6qu737t00v30KSM?si=vLlF89vYTWuFS0xh6UItAg&utm_source=copy-link&pi=bvnQObUiTqyRG",
+      url: "https://open.spotify.com/playlist/3Vl5vMo6qu737t00v30KSM?si=YRf1R412QjCVo030-DC-xA",
     },
   ];
 

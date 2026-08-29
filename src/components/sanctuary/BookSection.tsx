@@ -83,7 +83,7 @@ export function BookSection() {
                 Poetic Themes &amp; Reflections Included:
               </p>
               <div className="flex flex-wrap gap-2">
-                {["Overcoming Anxiety", "Finding Hope", "Trusting in Waiting", "Faith & Grace", "Emotional Healing", "Peace of Mind"].map((theme) => (
+                {["Inspirational", "Overcoming Anxiety", "Finding Hope", "Trusting in Waiting", "Faith & Grace", "Emotional Healing", "Peace of Mind"].map((theme) => (
                   <span
                     key={theme}
                     className="px-3 py-1.5 rounded-full bg-[#193323]/5 border border-[#5F8067]/20 text-xs font-medium text-[#193323]"
