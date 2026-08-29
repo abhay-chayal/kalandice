@@ -5,73 +5,63 @@ import React, { useState, useEffect, useRef } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
 export function AmbientSound() {
-  const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Create sanctuary background piano audio track
+    // Stop any previously orphaned audio instances from hot reloads
+    if (typeof window !== "undefined" && (window as unknown as { _sanctuaryAudio?: HTMLAudioElement })._sanctuaryAudio) {
+      const prevAudio = (window as unknown as { _sanctuaryAudio?: HTMLAudioElement })._sanctuaryAudio;
+      if (prevAudio) {
+        prevAudio.pause();
+        prevAudio.currentTime = 0;
+      }
+    }
+
+    // Create fresh audio instance
     const audio = new Audio(
       "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=peaceful-piano-ambient-112199.mp3"
     );
     audio.loop = true;
     audio.volume = 0.3;
     audioRef.current = audio;
-
-    const startAudio = () => {
-      audio
-        .play()
-        .then(() => {
-          audio.muted = false;
-          setIsPlaying(true);
-          setIsMuted(false);
-        })
-        .catch(() => {
-          // Autoplay blocked by browser policy until user clicks anywhere
-          const handleFirstClick = () => {
-            if (audioRef.current && audioRef.current.paused) {
-              audioRef.current.play().then(() => {
-                audioRef.current!.muted = false;
-                setIsPlaying(true);
-                setIsMuted(false);
-              });
-            }
-            window.removeEventListener("click", handleFirstClick);
-            window.removeEventListener("touchstart", handleFirstClick);
-          };
-          window.addEventListener("click", handleFirstClick, { once: true });
-          window.addEventListener("touchstart", handleFirstClick, { once: true });
-        });
-    };
-
-    startAudio();
+    (window as unknown as { _sanctuaryAudio?: HTMLAudioElement })._sanctuaryAudio = audio;
 
     return () => {
       audio.pause();
-      audio.src = "";
+      audio.currentTime = 0;
     };
   }, []);
 
   const toggleSound = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!audioRef.current) return;
 
-    if (!isMuted && isPlaying) {
-      // Instantly pause and mute audio
+    // Kill all audio elements on document to prevent any orphaned sounds
+    if (typeof document !== "undefined") {
+      const allAudios = document.querySelectorAll("audio");
+      allAudios.forEach((a) => {
+        a.pause();
+        a.currentTime = 0;
+      });
+    }
+
+    if (isPlaying && audioRef.current) {
+      // Hard stop & pause
       audioRef.current.pause();
+      audioRef.current.currentTime = 0;
       audioRef.current.muted = true;
-      setIsMuted(true);
       setIsPlaying(false);
-    } else {
-      // Unmute and play audio
+    } else if (audioRef.current) {
+      // Play fresh
       audioRef.current.muted = false;
       audioRef.current
         .play()
         .then(() => {
           setIsPlaying(true);
-          setIsMuted(false);
         })
-        .catch((err) => console.log("Audio play error:", err));
+        .catch((err) => {
+          console.log("Audio play blocked by browser policy:", err);
+        });
     }
   };
 
@@ -80,13 +70,13 @@ export function AmbientSound() {
       onClick={toggleSound}
       type="button"
       className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 ${
-        !isMuted && isPlaying
+        isPlaying
           ? "bg-[#193323] text-[#D4AF37] border border-[#C9A44C]/40 shadow-md ring-2 ring-[#C9A44C]/20"
           : "bg-white/80 text-[#536458] border border-[#5F8067]/20 hover:bg-white hover:text-[#193323]"
       }`}
-      title={!isMuted && isPlaying ? "Click to Mute Sanctuary Audio" : "Click to Play Sanctuary Audio"}
+      title={isPlaying ? "Click to Mute Sanctuary Audio" : "Click to Play Sanctuary Audio"}
     >
-      {!isMuted && isPlaying ? (
+      {isPlaying ? (
         <>
           <Volume2 className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
           <span>Sanctuary Audio: On</span>
