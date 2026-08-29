@@ -72,7 +72,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* Spotify Sanctuary Playlists */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex items-center gap-2 mb-6">
           <Music className="w-5 h-5 text-[#1DB954]" />
           <h2 className="font-serif-luxury text-2xl font-bold text-[#193323]">Author Spotify Sanctuary Playlists</h2>
