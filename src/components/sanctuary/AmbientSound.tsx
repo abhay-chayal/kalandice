@@ -5,7 +5,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
 export function AmbientSound() {
-  const [isPlaying, setIsPlaying] = useState(false);
+  // Default behaviour is UNMUTED / ON by default
+  const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -22,8 +23,36 @@ export function AmbientSound() {
     );
     audio.loop = true;
     audio.volume = 0.3;
+    audio.muted = false;
     audioRef.current = audio;
     (window as unknown as { _sanctuaryAudio?: HTMLAudioElement })._sanctuaryAudio = audio;
+
+    // Start playing unmuted by default
+    const playUnmuted = () => {
+      audio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch(() => {
+          // If browser policy blocks unmuted autoplay before interaction, trigger on first user action
+          const unlockAutoplay = () => {
+            if (audioRef.current && audioRef.current.paused) {
+              audioRef.current.muted = false;
+              audioRef.current.play().then(() => setIsPlaying(true));
+            }
+            window.removeEventListener("click", unlockAutoplay);
+            window.removeEventListener("touchstart", unlockAutoplay);
+            window.removeEventListener("scroll", unlockAutoplay);
+          };
+
+          window.addEventListener("click", unlockAutoplay, { once: true });
+          window.addEventListener("touchstart", unlockAutoplay, { once: true });
+          window.addEventListener("scroll", unlockAutoplay, { once: true });
+        });
+    };
+
+    playUnmuted();
 
     return () => {
       audio.pause();
@@ -36,12 +65,12 @@ export function AmbientSound() {
     if (!audioRef.current) return;
 
     if (isPlaying) {
-      // Pause audio without resetting currentTime so it resumes smoothly from where it left off
+      // Mute audio
       audioRef.current.muted = true;
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      // Unmute and resume playback from current position
+      // Unmute audio and resume
       audioRef.current.muted = false;
       audioRef.current
         .play()
@@ -49,7 +78,7 @@ export function AmbientSound() {
           setIsPlaying(true);
         })
         .catch((err) => {
-          console.log("Audio play blocked by browser policy:", err);
+          console.log("Audio play error:", err);
         });
     }
   };
