@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AmbientSound } from "./AmbientSound";
 import { Menu, X, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,18 +26,19 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Journey", href: "#journey" },
-    { name: "The Book", href: "#book" },
-    { name: "Poetics", href: "#poetics" },
-    { name: "Resources", href: "#resources" },
-    { name: "Events", href: "#events" },
-    { name: "Encouragement", href: "#contact" },
+    { name: "Journey", href: "/about" },
+    { name: "The Book", href: "/book" },
+    { name: "Poetics", href: "/poetics" },
+    { name: "Resources", href: "/resources" },
+    { name: "Events", href: "/events" },
+    { name: "Devotionals", href: "/blog" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
+        isScrolled || pathname !== "/"
           ? "bg-[#FAF7F2]/90 backdrop-blur-md border-b border-[#5F8067]/15 py-3 shadow-sm"
           : "bg-transparent py-5"
       }`}
@@ -63,7 +66,7 @@ export function Navbar() {
           </div>
         </Link>
 
-        {/* Center Scripture Pill (Ultra-clean, visible only on large screens xl+ to avoid layout collisions) */}
+        {/* Center Scripture Pill (Visible on xl+ screens) */}
         <div className="hidden xl:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#193323]/5 border border-[#5F8067]/20 text-xs text-[#254631] font-medium shadow-xs shrink-0 max-w-md">
           <Sparkles className="w-3.5 h-3.5 text-[#C9A44C] shrink-0" />
           <span className="font-serif-luxury italic truncate">
@@ -77,16 +80,25 @@ export function Navbar() {
         {/* Desktop Links & Sanctuary Sound Toggle */}
         <div className="hidden md:flex items-center gap-5 lg:gap-7 shrink-0">
           <nav className="flex items-center gap-4 lg:gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-[11px] lg:text-xs uppercase tracking-widest text-[#536458] hover:text-[#193323] font-semibold transition-colors relative group py-1 whitespace-nowrap"
-              >
-                {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C9A44C] group-hover:w-full transition-all duration-300" />
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`text-[11px] lg:text-xs uppercase tracking-widest font-semibold transition-colors relative group py-1 whitespace-nowrap ${
+                    isActive ? "text-[#193323]" : "text-[#536458] hover:text-[#193323]"
+                  }`}
+                >
+                  {link.name}
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.5 bg-[#C9A44C] transition-all duration-300 ${
+                      isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="w-px h-5 bg-[#5F8067]/20" />
@@ -127,7 +139,7 @@ export function Navbar() {
               </div>
 
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
@@ -135,7 +147,7 @@ export function Navbar() {
                 >
                   <span>{link.name}</span>
                   <span className="text-[#C9A44C]">→</span>
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>
