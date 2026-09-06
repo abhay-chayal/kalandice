@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 type ButterflySpecies = "monarch" | "emerald" | "celestial" | "sunset";
 
@@ -20,6 +20,7 @@ interface Butterfly {
 
 export function AmbientCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -31,7 +32,7 @@ export function AmbientCanvas() {
     let lastTime = performance.now();
 
     const resize = () => {
-      // Set to physical display resolution for sharp GPU rendering
+      // Physical display resolution scaling for sharp GPU rendering
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
@@ -43,7 +44,6 @@ export function AmbientCanvas() {
 
     const speciesList: ButterflySpecies[] = ["monarch", "emerald", "celestial", "sunset"];
     const butterflies: Butterfly[] = [];
-    // 15 graceful, silky-smooth butterflies for high performance during fast scrolling
     const count = 15;
 
     for (let i = 0; i < count; i++) {
@@ -62,7 +62,6 @@ export function AmbientCanvas() {
       });
     }
 
-    // Static color definitions (Zero gradient allocations in the 60fps render loop)
     const SPECIES_PALETTE = {
       monarch: {
         wing: "#E29338",
@@ -103,7 +102,7 @@ export function AmbientCanvas() {
 
       const palette = SPECIES_PALETTE[species];
 
-      // 1. Forewing (Combined single path for maximum GPU fill speed)
+      // Forewing path
       ctx.beginPath();
       ctx.moveTo(1, -size * 0.1);
       ctx.bezierCurveTo(size * 0.25, -size * 0.65, size * 0.75, -size * 0.95, size * 0.92, -size * 0.7);
@@ -111,7 +110,7 @@ export function AmbientCanvas() {
       ctx.bezierCurveTo(size * 0.25, 0.05, size * 0.1, -0.05, 1, -size * 0.1);
       ctx.closePath();
 
-      // Hindwing
+      // Hindwing path
       ctx.moveTo(1, 0);
       ctx.bezierCurveTo(size * 0.45, 0.05, size * 0.75, size * 0.25, size * 0.65, size * 0.6);
       ctx.bezierCurveTo(size * 0.5, size * 0.82, size * 0.2, size * 0.75, size * 0.08, size * 0.45);
@@ -151,7 +150,6 @@ export function AmbientCanvas() {
     };
 
     const render = (now: number) => {
-      // Calculate delta-time: guarantees constant speed even during heavy scroll lag
       const dt = Math.min((now - lastTime) / 16.67, 2.0);
       lastTime = now;
 
@@ -165,12 +163,10 @@ export function AmbientCanvas() {
 
         b.time += 0.035 * dt;
 
-        // Natural smooth trajectory scaled by delta time
         const flutter = Math.sin(b.time * 2.5 + b.flutterOffset);
         b.x += (b.speedX + flutter * 0.65) * dt;
         b.y += (b.speedY + Math.cos(b.time * 1.8) * 0.35) * dt;
 
-        // Viewport bounds wrap
         if (b.y < -40) {
           b.y = h + 40;
           b.x = Math.random() * w;
@@ -178,7 +174,6 @@ export function AmbientCanvas() {
         if (b.x < -40) b.x = w + 40;
         if (b.x > w + 40) b.x = -40;
 
-        // Realistic 3D Wing Flapping with delta-time
         const rawFlap = Math.sin(b.time * b.flapSpeed * 28);
         const wingScaleX = 0.2 + 0.8 * Math.abs(rawFlap);
         const bankTilt = Math.sin(b.time * b.tiltSpeed * 15) * 0.2 + (b.speedX > 0 ? 0.07 : -0.07);
@@ -188,11 +183,10 @@ export function AmbientCanvas() {
         ctx.rotate(bankTilt);
         ctx.globalAlpha = b.opacity;
 
-        // Render Left & Right Wings
         drawWingHalf(ctx, b.size, wingScaleX, true, b.species);
         drawWingHalf(ctx, b.size, wingScaleX, false, b.species);
 
-        // Slender butterfly body
+        // Slender body
         ctx.fillStyle = "rgba(45, 30, 20, 0.75)";
         ctx.beginPath();
         ctx.ellipse(0, 0, 1.3, b.size * 0.38, 0, 0, Math.PI * 2);
@@ -217,7 +211,13 @@ export function AmbientCanvas() {
 
     animationFrameId = requestAnimationFrame(render);
 
+    // Initial smooth fade-in after canvas render loop is ready and warm
+    const revealTimer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 250);
+
     return () => {
+      clearTimeout(revealTimer);
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
     };
@@ -226,9 +226,11 @@ export function AmbientCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-10 opacity-80"
+      className={`fixed inset-0 pointer-events-none z-10 transition-opacity duration-1000 ease-out ${
+        isLoaded ? "opacity-85" : "opacity-0"
+      }`}
       style={{
-        willChange: "transform",
+        willChange: "transform, opacity",
         transform: "translate3d(0, 0, 0)",
         backfaceVisibility: "hidden",
       }}
