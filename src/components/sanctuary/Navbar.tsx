@@ -21,7 +21,7 @@ export function Navbar() {
         setIsScrolled(false);
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -39,15 +39,15 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled || pathname !== "/"
-          ? "bg-[#FAF7F2]/90 backdrop-blur-md border-b border-[#5F8067]/15 py-3 shadow-sm"
-          : "bg-transparent py-5"
+          ? "bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#5F8067]/15 py-2.5 sm:py-3 shadow-sm"
+          : "bg-transparent py-3.5 sm:py-5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
         
         {/* Brand Logo & Title */}
-        <Link href="/" className="flex items-center gap-3 group shrink-0">
-          <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-[#C9A44C]/40 shadow-sm group-hover:scale-105 transition-transform duration-300">
+        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink min-w-0">
+          <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-[#C9A44C]/40 shadow-sm group-hover:scale-105 transition-transform duration-300 shrink-0">
             <Image
               src="/images/logo.png"
               alt="Kalandice Thomas Logo"
@@ -56,11 +56,11 @@ export function Navbar() {
               priority
             />
           </div>
-          <div className="flex flex-col">
-            <span className="font-serif-luxury text-base sm:text-lg tracking-tight font-semibold text-[#193323] leading-none group-hover:text-[#5F8067] transition-colors">
+          <div className="flex flex-col min-w-0">
+            <span className="font-serif-luxury text-sm sm:text-lg tracking-tight font-semibold text-[#193323] leading-tight group-hover:text-[#5F8067] transition-colors truncate">
               Kalandice Thomas
             </span>
-            <span className="font-script-poetry text-xs text-[#C9A44C] tracking-wide mt-0.5">
+            <span className="font-script-poetry text-[11px] sm:text-xs text-[#C9A44C] tracking-wide truncate">
               Encouraging Poetics
             </span>
           </div>
@@ -105,15 +105,18 @@ export function Navbar() {
           <AmbientSound />
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="flex items-center gap-3 md:hidden">
+        {/* Mobile Actions: Audio Toggle + Hamburger Menu */}
+        <div className="flex items-center gap-2 md:hidden shrink-0">
           <AmbientSound />
+
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-full text-[#193323] hover:bg-[#193323]/10 transition-colors"
-            aria-label="Toggle menu"
+            type="button"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/90 border border-[#5F8067]/25 text-[#193323] hover:bg-[#193323] hover:text-[#FAF7F2] transition-colors shadow-xs flex items-center justify-center shrink-0 cursor-pointer touch-manipulation z-30"
+            aria-label="Toggle navigation menu"
+            title="Toggle Menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-rose-700" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
@@ -126,9 +129,10 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#FAF7F2] border-b border-[#5F8067]/20 px-6 py-6 shadow-xl"
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="md:hidden bg-[#FAF7F2] border-b-2 border-[#C9A44C]/30 px-5 py-5 shadow-2xl overflow-hidden"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               <div className="p-3 rounded-xl bg-[#193323]/5 border border-[#5F8067]/15 text-center">
                 <p className="font-serif-luxury italic text-xs text-[#193323]">
                   &ldquo;The Lord is my shepherd, I lack nothing&rdquo;
@@ -138,17 +142,22 @@ export function Navbar() {
                 </p>
               </div>
 
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-medium text-[#254631] py-2 border-b border-[#5F8067]/10 flex items-center justify-between"
-                >
-                  <span>{link.name}</span>
-                  <span className="text-[#C9A44C]">→</span>
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-sm font-semibold py-2.5 px-3 rounded-xl border-b border-[#5F8067]/10 flex items-center justify-between transition-colors ${
+                      isActive ? "bg-[#193323]/10 text-[#193323]" : "text-[#254631] hover:bg-white/60"
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    <span className="text-[#C9A44C]">→</span>
+                  </Link>
+                );
+              })}
             </div>
           </motion.div>
         )}

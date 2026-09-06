@@ -13,7 +13,6 @@ export function AmbientSound() {
   const userMutedRef = useRef(false);
 
   useEffect(() => {
-    // Reuse existing audio object or create a new one safely
     let audio: HTMLAudioElement;
 
     if (typeof window !== "undefined" && (window as unknown as { _sanctuaryAudio?: HTMLAudioElement })._sanctuaryAudio) {
@@ -31,7 +30,6 @@ export function AmbientSound() {
 
     audioRef.current = audio;
 
-    // Direct event sync with HTML5 audio engine
     audio.onplay = () => setIsPlaying(true);
     audio.onpause = () => setIsPlaying(false);
 
@@ -56,14 +54,12 @@ export function AmbientSound() {
       window.removeEventListener("keydown", unlockOnGesture);
     };
 
-    // Attempt immediate autoplay on page load
     audio
       .play()
       .then(() => {
         setIsPlaying(true);
       })
       .catch(() => {
-        // Fallback for browser autoplay policies
         window.addEventListener("wheel", unlockOnGesture, { passive: true, once: true });
         window.addEventListener("scroll", unlockOnGesture, { passive: true, once: true });
         window.addEventListener("mousemove", unlockOnGesture, { passive: true, once: true });
@@ -86,7 +82,6 @@ export function AmbientSound() {
 
     const audio = audioRef.current;
 
-    // Guarantee valid audio source URL before playing
     if (!audio.src) {
       audio.src = AUDIO_SRC;
     }
@@ -94,13 +89,11 @@ export function AmbientSound() {
     const isCurrentlyPlaying = !audio.paused && !audio.muted;
 
     if (isCurrentlyPlaying || isPlaying) {
-      // User explicitly mutes -> HARD PAUSE & MUTE
       userMutedRef.current = true;
       audio.muted = true;
       audio.pause();
       setIsPlaying(false);
     } else {
-      // User explicitly unmutes -> RESUME PLAYBACK
       userMutedRef.current = false;
       audio.muted = false;
       audio
@@ -116,7 +109,7 @@ export function AmbientSound() {
     <button
       onClick={handleToggle}
       type="button"
-      className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 select-none cursor-pointer touch-manipulation ${
+      className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 select-none cursor-pointer touch-manipulation shrink-0 ${
         isPlaying
           ? "bg-[#193323] text-[#D4AF37] border border-[#C9A44C]/40 shadow-md ring-2 ring-[#C9A44C]/20"
           : "bg-white/80 text-[#536458] border border-[#5F8067]/20 hover:bg-white hover:text-[#193323]"
@@ -126,13 +119,15 @@ export function AmbientSound() {
       {isPlaying ? (
         <>
           <Volume2 className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse shrink-0" />
-          <span className="whitespace-nowrap">Sanctuary Audio: On</span>
+          <span className="hidden sm:inline whitespace-nowrap">Sanctuary Audio: On</span>
+          <span className="sm:hidden text-[11px] whitespace-nowrap">Audio: On</span>
           <span className="w-1.5 h-1.5 rounded-full bg-[#1DB954] animate-ping shrink-0" />
         </>
       ) : (
         <>
           <VolumeX className="w-3.5 h-3.5 text-rose-700 shrink-0" />
-          <span className="whitespace-nowrap">Sanctuary Audio: Muted</span>
+          <span className="hidden sm:inline whitespace-nowrap">Sanctuary Audio: Muted</span>
+          <span className="sm:hidden text-[11px] whitespace-nowrap">Muted</span>
         </>
       )}
     </button>
