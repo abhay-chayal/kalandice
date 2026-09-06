@@ -4,74 +4,77 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
+const AUDIO_SRC =
+  "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=peaceful-piano-ambient-112199.mp3";
+
 export function AmbientSound() {
-  // Default behaviour is UNMUTED / ON by default
   const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const userMutedRef = useRef(false);
 
   useEffect(() => {
-    // Singleton cleanup for HMR / hot reloads
+    // Reuse existing audio object or create a new one safely
+    let audio: HTMLAudioElement;
+
     if (typeof window !== "undefined" && (window as unknown as { _sanctuaryAudio?: HTMLAudioElement })._sanctuaryAudio) {
-      const prev = (window as unknown as { _sanctuaryAudio?: HTMLAudioElement })._sanctuaryAudio;
-      if (prev) {
-        prev.pause();
-        prev.src = "";
+      audio = (window as unknown as { _sanctuaryAudio?: HTMLAudioElement })._sanctuaryAudio!;
+      if (!audio.src) {
+        audio.src = AUDIO_SRC;
       }
+    } else {
+      audio = new Audio(AUDIO_SRC);
+      audio.loop = true;
+      audio.volume = 0.35;
+      audio.preload = "auto";
+      (window as unknown as { _sanctuaryAudio?: HTMLAudioElement })._sanctuaryAudio = audio;
     }
 
-    const audio = new Audio(
-      "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=peaceful-piano-ambient-112199.mp3"
-    );
-    audio.loop = true;
-    audio.volume = 0.35;
-    audio.preload = "auto";
-    audio.muted = false;
     audioRef.current = audio;
-    (window as unknown as { _sanctuaryAudio?: HTMLAudioElement })._sanctuaryAudio = audio;
 
-    // Start playing unmuted by default
-    const attemptPlay = () => {
-      if (userMutedRef.current || !audioRef.current) return;
-      audioRef.current.muted = false;
-      audioRef.current
-        .play()
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch(() => {
-          // Mobile Safari & Chrome require user gesture to unblock unmuted audio
-          const unlockOnGesture = () => {
-            if (!userMutedRef.current && audioRef.current) {
-              audioRef.current.muted = false;
-              audioRef.current
-                .play()
-                .then(() => setIsPlaying(true))
-                .catch(() => {});
-            }
-            cleanupListeners();
-          };
+    // Direct event sync with HTML5 audio engine
+    audio.onplay = () => setIsPlaying(true);
+    audio.onpause = () => setIsPlaying(false);
 
-          const cleanupListeners = () => {
-            window.removeEventListener("touchstart", unlockOnGesture);
-            window.removeEventListener("pointerdown", unlockOnGesture);
-            window.removeEventListener("click", unlockOnGesture);
-            window.removeEventListener("scroll", unlockOnGesture);
-          };
-
-          window.addEventListener("touchstart", unlockOnGesture, { passive: true, once: true });
-          window.addEventListener("pointerdown", unlockOnGesture, { passive: true, once: true });
-          window.addEventListener("click", unlockOnGesture, { passive: true, once: true });
-          window.addEventListener("scroll", unlockOnGesture, { passive: true, once: true });
-        });
+    const unlockOnGesture = () => {
+      if (!userMutedRef.current && audioRef.current && audioRef.current.paused) {
+        audioRef.current.muted = false;
+        audioRef.current
+          .play()
+          .then(() => setIsPlaying(true))
+          .catch(() => {});
+      }
+      cleanupListeners();
     };
 
-    attemptPlay();
+    const cleanupListeners = () => {
+      window.removeEventListener("wheel", unlockOnGesture);
+      window.removeEventListener("scroll", unlockOnGesture);
+      window.removeEventListener("mousemove", unlockOnGesture);
+      window.removeEventListener("pointerdown", unlockOnGesture);
+      window.removeEventListener("click", unlockOnGesture);
+      window.removeEventListener("touchstart", unlockOnGesture);
+      window.removeEventListener("keydown", unlockOnGesture);
+    };
+
+    // Attempt immediate autoplay on page load
+    audio
+      .play()
+      .then(() => {
+        setIsPlaying(true);
+      })
+      .catch(() => {
+        // Fallback for browser autoplay policies
+        window.addEventListener("wheel", unlockOnGesture, { passive: true, once: true });
+        window.addEventListener("scroll", unlockOnGesture, { passive: true, once: true });
+        window.addEventListener("mousemove", unlockOnGesture, { passive: true, once: true });
+        window.addEventListener("pointerdown", unlockOnGesture, { passive: true, once: true });
+        window.addEventListener("click", unlockOnGesture, { passive: true, once: true });
+        window.addEventListener("touchstart", unlockOnGesture, { passive: true, once: true });
+        window.addEventListener("keydown", unlockOnGesture, { passive: true, once: true });
+      });
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
+      cleanupListeners();
     };
   }, []);
 
@@ -83,18 +86,29 @@ export function AmbientSound() {
 
     const audio = audioRef.current;
 
-    if (isPlaying) {
-      // User explicitly muted: Stop audio instantly & pause
+    // Guarantee valid audio source URL before playing
+    if (!audio.src) {
+      audio.src = AUDIO_SRC;
+    }
+
+    const isCurrentlyPlaying = !audio.paused && !audio.muted;
+
+    if (isCurrentlyPlaying || isPlaying) {
+      // User explicitly mutes -> HARD PAUSE & MUTE
       userMutedRef.current = true;
-      setIsPlaying(false);
       audio.muted = true;
       audio.pause();
+      setIsPlaying(false);
     } else {
-      // User explicitly unmuted: Resume audio from current position
+      // User explicitly unmutes -> RESUME PLAYBACK
       userMutedRef.current = false;
-      setIsPlaying(true);
       audio.muted = false;
-      audio.play().catch((err) => console.log("Audio play catch:", err));
+      audio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((err) => console.log("Unmute play error:", err));
     }
   };
 
