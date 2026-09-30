@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Heart, Bookmark, Volume2, X, Feather, Share2, Check } from "lucide-react";
+import { Sparkles, Bookmark, X, Feather } from "lucide-react";
 import confetti from "canvas-confetti";
 
 interface Poem {

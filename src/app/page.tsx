@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import { AmbientCanvas } from "@/components/sanctuary/AmbientCanvas";
 import { Navbar } from "@/components/sanctuary/Navbar";
 import { HeroSection } from "@/components/sanctuary/HeroSection";
@@ -10,8 +11,21 @@ import { EventsSection } from "@/components/sanctuary/EventsSection";
 import { TestimonialsSection } from "@/components/sanctuary/TestimonialsSection";
 import { NewsletterSection } from "@/components/sanctuary/NewsletterSection";
 import { ContactFooter } from "@/components/sanctuary/ContactFooter";
+import { getFeaturedBook, getResources, getTestimonials, getUpcomingEvents } from "@/lib/content/queries";
 
-export default function Home() {
+export const metadata: Metadata = { alternates: { canonical: "/" } };
+
+// Cached and refreshed hourly; saving in the admin dashboard refreshes it immediately.
+export const revalidate = 3600;
+
+export default async function Home() {
+  const [{ featured }, events, resources, testimonials] = await Promise.all([
+    getFeaturedBook(),
+    getUpcomingEvents(),
+    getResources(),
+    getTestimonials(),
+  ]);
+
   return (
     <main className="relative min-h-screen bg-[#FAF7F2] text-[#1C2620]">
       {/* GPU Accelerated Sunbeam & Foliage Particle Canvas */}
@@ -27,19 +41,19 @@ export default function Home() {
       <StorySection />
 
       {/* Featured 3D Book Showcase */}
-      <BookSection />
+      <BookSection book={featured} />
 
       {/* Interactive Poetry Sanctuary Experience */}
       <PoetryExperience />
 
       {/* Sanctuary Resources: Spotify, Mental Health, Church Finder */}
-      <ResourcesSection />
+      <ResourcesSection resources={resources} />
 
       {/* Gatherings & Events */}
-      <EventsSection />
+      <EventsSection events={events} />
 
       {/* Reader Reflections & Testimonials */}
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={testimonials} />
 
       {/* Monthly Encouragement Newsletter */}
       <NewsletterSection />

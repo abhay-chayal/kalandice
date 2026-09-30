@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { BookOpen, HeartHandshake, ChevronDown, Sparkles, Sun } from "lucide-react";
+import { BookOpen, HeartHandshake, ChevronDown, Sun } from "lucide-react";
 
 export function HeroSection() {
   return (
@@ -26,9 +26,10 @@ export function HeroSection() {
           <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#C9A44C] via-[#5F8067] to-[#C9A44C] opacity-50 blur-sm group-hover:opacity-80 transition duration-500" />
           <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-[#FAF7F2]">
             <Image
-              src="/images/logo.png"
+              src="/images/logo.webp"
               alt="Encouraging Poetics Brand Vision Logo"
               fill
+              sizes="(min-width: 640px) 144px, 112px"
               className="object-cover"
               priority
             />

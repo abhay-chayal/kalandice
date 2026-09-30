@@ -1,27 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
-import { Send, Sparkles, CheckCircle2 } from "lucide-react";
+import React, { useActionState, useEffect } from "react";
+import { Send, Sparkles, CheckCircle2, Loader2 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { subscribe, type FormState } from "@/app/actions/forms";
+
+const initialState: FormState = { status: "idle", message: "" };
 
 export function NewsletterSection() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [state, formAction, pending] = useActionState(subscribe, initialState);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubmitted(true);
+  useEffect(() => {
+    if (state.status !== "success") return;
     confetti({
       particleCount: 50,
       spread: 70,
       origin: { y: 0.6 },
       colors: ["#C9A44C", "#5F8067", "#FAF7F2"],
     });
-  };
+  }, [state]);
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#193323] text-[#FAF7F2] relative overflow-hidden">
+    <section id="newsletter" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#193323] text-[#FAF7F2] relative overflow-hidden scroll-mt-20">
       {/* Background Soft Glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-radial from-[#C9A44C]/15 to-transparent rounded-full blur-3xl pointer-events-none" />
 
@@ -39,34 +39,42 @@ export function NewsletterSection() {
           Join Kalandice&apos;s quiet circle. Receive fresh poetry excerpts, scripture reflection prompts, and encouraging prayers delivered softly to your inbox once a month.
         </p>
 
-        {submitted ? (
-          <div className="p-6 rounded-2xl bg-white/10 border border-[#C9A44C]/40 inline-flex items-center gap-3 text-[#D4AF37] max-w-md mx-auto">
+        {state.status === "success" ? (
+          <div role="status" className="p-6 rounded-2xl bg-white/10 border border-[#C9A44C]/40 inline-flex items-center gap-3 text-[#D4AF37] max-w-md mx-auto">
             <CheckCircle2 className="w-6 h-6 shrink-0" />
             <span className="text-sm font-medium text-left">
-              Welcome to the sanctuary circle! Check your inbox for your first encouragement note.
+              {state.message}
             </span>
           </div>
         ) : (
           <form
-            onSubmit={handleSubmit}
+            action={formAction}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto"
           >
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              aria-label="Email address"
               placeholder="Enter your email address..."
               required
+              maxLength={200}
               className="w-full px-5 py-4 rounded-full bg-white/90 text-[#193323] placeholder-[#536458] text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A44C]"
             />
             <button
               type="submit"
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#C9A44C] text-[#193323] font-bold text-sm hover:bg-[#e6ca65] transition-all shadow-lg shrink-0 flex items-center justify-center gap-2"
+              disabled={pending}
+              className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#C9A44C] text-[#193323] font-bold text-sm hover:bg-[#e6ca65] transition-all shadow-lg shrink-0 flex items-center justify-center gap-2 disabled:opacity-70"
             >
-              <span>Subscribe</span>
-              <Send className="w-4 h-4" />
+              <span>{pending ? "Joining..." : "Subscribe"}</span>
+              {pending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             </button>
           </form>
+        )}
+        {state.status === "error" && (
+          <p role="alert" className="mt-4 text-sm text-[#F5C2B8]">
+            {state.message}
+          </p>
         )}
       </div>
     </section>

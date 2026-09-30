@@ -1,0 +1,14 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "kalandice-dev",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": [
+        "/c",
+        "C:\\Users\\chaya\\AppData\\Local\\Temp\\claude\\D--shardhanjalli\\236f869d-b199-4229-ab15-7e52d9d5da09\\scratchpad\\kdev.cmd"
+      ],
+      "port": 3100
+    }
+  ]
+}

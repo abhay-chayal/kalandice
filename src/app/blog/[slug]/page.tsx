@@ -1,20 +1,49 @@
-"use client";
-
-import React from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import { Navbar } from "@/components/sanctuary/Navbar";
 import { ContactFooter } from "@/components/sanctuary/ContactFooter";
 import { AmbientCanvas } from "@/components/sanctuary/AmbientCanvas";
-import { blogPosts } from "../page";
-import { ArrowLeft, Clock, Calendar, Quote, Share2, Sparkles, Heart } from "lucide-react";
+import { CmsImage } from "@/components/CmsImage";
+import { ArrowLeft, Clock, Calendar } from "lucide-react";
+import { getPostBySlug, getPublishedPosts } from "@/lib/content/queries";
+import { formatDate, parseContent, readTime } from "@/lib/content/format";
 
-export default function BlogPostDetailPage() {
-  const params = useParams();
-  const slug = params.slug as string;
+export const revalidate = 3600;
 
-  const post = blogPosts.find((p) => p.slug === slug) || blogPosts[0];
+type Props = { params: Promise<{ slug: string }> };
+
+export async function generateStaticParams() {
+  const posts = await getPublishedPosts();
+  return posts.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  if (!post) return { title: "Devotional not found" };
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      publishedTime: post.published_at ?? undefined,
+      authors: ["Kalandice Thomas"],
+      ...(post.cover_image ? { images: [post.cover_image] } : {}),
+    },
+  };
+}
+
+export default async function BlogPostDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  if (!post) notFound();
+
+  const blocks = parseContent(post.content);
 
   return (
     <main className="relative min-h-screen bg-[#FAF7F2] text-[#1C2620]">
@@ -32,7 +61,7 @@ export default function BlogPostDetailPage() {
         </Link>
 
         {/* Post Metadata Header */}
-        <div className="space-y-4 text-center">
+        <header className="space-y-4 text-center">
           <span className="px-3.5 py-1 rounded-full bg-[#193323] text-[#D4AF37] text-xs font-semibold">
             {post.category}
           </span>
@@ -44,44 +73,54 @@ export default function BlogPostDetailPage() {
           <div className="flex items-center justify-center gap-4 text-xs text-[#536458] font-mono pt-2">
             <span className="flex items-center gap-1">
               <Calendar className="w-3.5 h-3.5 text-[#C9A44C]" />
-              {post.date}
+              <time dateTime={post.published_at ?? undefined}>{formatDate(post.published_at)}</time>
             </span>
-            <span>•</span>
+            <span aria-hidden="true">•</span>
             <span className="flex items-center gap-1">
               <Clock className="w-3.5 h-3.5 text-[#5F8067]" />
-              {post.readTime}
+              {readTime(post.content)}
             </span>
           </div>
-        </div>
+        </header>
+
+        {post.cover_image && (
+          <div className="relative w-full aspect-[16/9] rounded-3xl overflow-hidden shadow-md border-4 border-white">
+            <CmsImage src={post.cover_image} alt={post.title} fill priority sizes="(min-width: 896px) 896px, 100vw" className="object-cover" />
+          </div>
+        )}
 
         {/* Scripture Spotlight Banner */}
-        <div className="p-6 rounded-2xl bg-white border border-[#C9A44C]/40 shadow-xs text-center">
-          <p className="font-serif-luxury italic text-base text-[#193323]">&ldquo;{post.scripture}&rdquo;</p>
-        </div>
+        {post.scripture && (
+          <div className="p-6 rounded-2xl bg-white border border-[#C9A44C]/40 shadow-xs text-center">
+            <p className="font-serif-luxury italic text-base text-[#193323]">&ldquo;{post.scripture}&rdquo;</p>
+          </div>
+        )}
 
         {/* Full Essay Content */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-[#5F8067]/20 shadow-md space-y-6 text-[#254631] text-base leading-relaxed font-serif-luxury">
-          <p>
-            When we wake up to the quiet early light of morning, our hearts are often presented with a choice: will we carry yesterday&apos;s heavy anxieties, or will we step softly into the Shepherd&apos;s quiet pastures?
-          </p>
-
-          <p>
-            Living in a fast-moving world can be precarious. Worry tells us to grip tighter, to scramble for answers, and to control outcomes. But Jesus invites us into a radically different posture—unclasping our hands and casting all our anxiety onto Him, because He cares for us with an unending, unwavering love.
-          </p>
-
-          <blockquote className="p-6 rounded-2xl bg-[#193323] text-[#FAF7F2] font-serif-luxury italic text-lg shadow-inner">
-            &ldquo;The Lord is my shepherd; I lack nothing. He makes me lie down in green pastures, He leads me beside quiet waters, He refreshes my soul.&rdquo;
-          </blockquote>
-
-          <p>
-            Whatever waiting season or anxiety you are facing today, remember that your roots are growing deep in God&apos;s grace. Take a slow breath, rest your spirit in His promises, and trust that He is preparing something beautiful in His perfect timing.
-          </p>
+        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-[#5F8067]/20 shadow-md space-y-6 text-[#254631] text-base leading-relaxed font-serif-luxury whitespace-pre-line">
+          {blocks.map((block, i) => {
+            if (block.type === "h2") {
+              return (
+                <h2 key={i} className="text-2xl font-bold text-[#193323] pt-2">
+                  {block.text}
+                </h2>
+              );
+            }
+            if (block.type === "quote") {
+              return (
+                <blockquote key={i} className="p-6 rounded-2xl bg-[#193323] text-[#FAF7F2] italic text-lg shadow-inner">
+                  &ldquo;{block.text}&rdquo;
+                </blockquote>
+              );
+            }
+            return <p key={i}>{block.text}</p>;
+          })}
         </div>
 
         {/* Author Bio Footer Block */}
         <div className="p-6 rounded-2xl bg-white border border-[#5F8067]/15 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden relative border-2 border-[#C9A44C]">
-            <Image src="/images/logo.png" alt="Kalandice Thomas" fill className="object-cover" />
+          <div className="w-12 h-12 rounded-full overflow-hidden relative border-2 border-[#C9A44C] shrink-0">
+            <Image src="/images/logo.webp" alt="Kalandice Thomas" fill sizes="48px" className="object-cover" />
           </div>
           <div>
             <p className="font-serif-luxury font-bold text-sm text-[#193323]">Written by Kalandice Thomas</p>

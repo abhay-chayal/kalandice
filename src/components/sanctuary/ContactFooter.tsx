@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { Mail, Copy, Check, Heart, Sparkles, Send } from "lucide-react";
+import { Mail, Copy, Check, Sparkles } from "lucide-react";
+import { MessageForm } from "@/components/forms/MessageForm";
+import { CONTACT_EMAIL, SOCIAL_LINKS } from "@/lib/site";
 
-function InstagramIcon({ className = "w-5 h-5" }: { className?: string }) {
+export function InstagramIcon({ className = "w-5 h-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
       <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -15,7 +16,7 @@ function InstagramIcon({ className = "w-5 h-5" }: { className?: string }) {
   );
 }
 
-function FacebookIcon({ className = "w-5 h-5" }: { className?: string }) {
+export function FacebookIcon({ className = "w-5 h-5" }: { className?: string }) {
   return (
     <svg className={className} fill="currentColor" viewBox="0 0 24 24">
       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -25,7 +26,7 @@ function FacebookIcon({ className = "w-5 h-5" }: { className?: string }) {
 
 export function ContactFooter() {
   const [copied, setCopied] = useState(false);
-  const email = "kalandice.poetics@gmail.com";
+  const email = CONTACT_EMAIL;
 
   const copyEmail = () => {
     navigator.clipboard.writeText(email);
@@ -45,9 +46,10 @@ export function ContactFooter() {
             <div className="flex items-center gap-4">
               <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#C9A44C] shadow-lg">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/logo.webp"
                   alt="Kalandice Thomas Logo"
                   fill
+                  sizes="64px"
                   className="object-cover"
                 />
               </div>
@@ -85,7 +87,7 @@ export function ContactFooter() {
             {/* Social Links */}
             <div className="flex items-center gap-4 pt-2">
               <a
-                href="https://www.instagram.com/encouragingpoetics?igsh=dnp4b29uN2M4MnZu&utm_source=qr"
+                href={SOCIAL_LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-white/5 text-[#E5ECE6] hover:bg-[#C9A44C] hover:text-[#193323] transition-colors"
@@ -94,7 +96,7 @@ export function ContactFooter() {
                 <InstagramIcon className="w-5 h-5" />
               </a>
               <a
-                href="https://www.facebook.com/share/188WXBQmam/?mibextid=wwXIfr"
+                href={SOCIAL_LINKS.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-white/5 text-[#E5ECE6] hover:bg-[#C9A44C] hover:text-[#193323] transition-colors"
@@ -114,35 +116,13 @@ export function ContactFooter() {
               Messages are sent directly to Kalandice&apos;s personal inbox.
             </p>
 
-            <form onSubmit={(e) => { e.preventDefault(); alert("Thank you! Your message has been sent to Kalandice."); }} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  required
-                  className="px-4 py-3 rounded-xl bg-white/10 text-white placeholder-[#8CA793] text-xs focus:outline-none focus:ring-1 focus:ring-[#C9A44C]"
-                />
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  required
-                  className="px-4 py-3 rounded-xl bg-white/10 text-white placeholder-[#8CA793] text-xs focus:outline-none focus:ring-1 focus:ring-[#C9A44C]"
-                />
-              </div>
-              <textarea
-                rows={3}
-                placeholder="Share your thoughts or prayer request..."
-                required
-                className="w-full px-4 py-3 rounded-xl bg-white/10 text-white placeholder-[#8CA793] text-xs focus:outline-none focus:ring-1 focus:ring-[#C9A44C]"
-              />
-              <button
-                type="submit"
-                className="w-full py-3.5 rounded-xl bg-[#C9A44C] text-[#193323] font-bold text-xs hover:bg-[#e6ca65] transition-all flex items-center justify-center gap-2"
-              >
-                <Send className="w-4 h-4" />
-                <span>Send Message to Kalandice</span>
-              </button>
-            </form>
+            <MessageForm
+              kind="general"
+              nameRequired
+              rows={3}
+              messagePlaceholder="Share your thoughts or prayer request..."
+              submitLabel="Send Message to Kalandice"
+            />
           </div>
 
         </div>

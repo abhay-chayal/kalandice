@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Quote, Heart, Sparkles, Coffee, GraduationCap, Feather, Compass } from "lucide-react";
+import { Quote, Heart, Coffee, GraduationCap, Feather, Compass } from "lucide-react";
 
 export function StorySection() {
   const storyPoints = [
@@ -56,9 +56,10 @@ export function StorySection() {
               className="relative h-80 sm:h-96 rounded-3xl overflow-hidden shadow-xl border-4 border-white"
             >
               <Image
-                src="/images/author-reading-field.png"
+                src="/images/author-reading-field.webp"
                 alt="Kalandice Thomas reading in nature"
                 fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#193323]/60 via-transparent to-transparent" />
@@ -73,9 +74,10 @@ export function StorySection() {
                 className="relative h-44 sm:h-48 rounded-3xl overflow-hidden shadow-lg border-4 border-white"
               >
                 <Image
-                  src="/images/author-butterfly-mural.png"
+                  src="/images/author-butterfly-mural.webp"
                   alt="Kalandice at butterfly mural"
                   fill
+                  sizes="(min-width: 1024px) 20vw, 50vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -89,9 +91,10 @@ export function StorySection() {
                 className="relative h-44 sm:h-48 rounded-3xl overflow-hidden shadow-lg border-4 border-white"
               >
                 <Image
-                  src="/images/author-hallway.png"
+                  src="/images/author-hallway.webp"
                   alt="Kalandice Thomas holding Encouraging Poetics"
                   fill
+                  sizes="(min-width: 1024px) 20vw, 50vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -149,9 +152,10 @@ export function StorySection() {
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#C9A44C] relative">
               <Image
-                src="/images/logo.png"
+                src="/images/logo.webp"
                 alt="Kalandice"
                 fill
+                sizes="48px"
                 className="object-cover"
               />
             </div>

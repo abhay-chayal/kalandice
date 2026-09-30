@@ -3,25 +3,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Star, Heart, Quote } from "lucide-react";
+import type { Testimonial } from "@/lib/content/types";
 
-export function TestimonialsSection() {
-  const testimonials = [
-    {
-      quote: "Reading Encouraging Poetics felt like taking a deep breath after holding it for months. Kalandice's words pointed me right back to God's peace during my hardest season of anxiety.",
-      author: "Sarah M.",
-      location: "Dallas, TX",
-    },
-    {
-      quote: "Every poem reads like a soft prayer. The reflection prompts opened my eyes to how deeply Jesus cares for us in quiet waiting.",
-      author: "Rachel K.",
-      location: "Houston, TX",
-    },
-    {
-      quote: "A true sanctuary in book form. Beautiful, sincere, and deeply comforting. I gift this book to everyone going through life transitions.",
-      author: "Jessica T.",
-      location: "Austin, TX",
-    },
-  ];
+export function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
+  // Hidden until Kalandice adds real reader quotes in the dashboard.
+  if (testimonials.length === 0) return null;
 
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#FAF7F2] via-[#E5ECE6]/30 to-[#FAF7F2]">
@@ -40,18 +26,20 @@ export function TestimonialsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t, idx) => (
+          {testimonials.map((t) => (
             <motion.div
-              key={t.author}
+              key={t.id}
               whileHover={{ y: -4 }}
               className="p-8 rounded-3xl bg-white border border-[#5F8067]/20 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center gap-1 text-[#C9A44C] mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#C9A44C]" />
-                  ))}
-                </div>
+                {t.rating > 0 && (
+                  <div className="flex items-center gap-1 text-[#C9A44C] mb-4" aria-label={`${t.rating} out of 5 stars`}>
+                    {[...Array(t.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-[#C9A44C]" />
+                    ))}
+                  </div>
+                )}
                 <Quote className="w-8 h-8 text-[#C9A44C]/20 mb-2" />
                 <p className="font-serif-luxury italic text-sm text-[#254631] leading-relaxed mb-6">
                   &ldquo;{t.quote}&rdquo;
