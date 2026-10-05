@@ -101,6 +101,7 @@ Test with **her** account, not just yours:
 - [ ] "Forgot password" email works
 - [ ] Create a draft post → it isn't on `/blog` → publish → it appears
 - [ ] Add a reader quote → the home page section appears (it's hidden while there are none)
+- [ ] Edit the newsletter wording under Newsletter Text → the home page updates
 - [ ] Edit / delete a post, event, book, resource → site updates within seconds
 - [ ] Upload a phone photo as a post cover → it shows on the post
 - [ ] Contact form, prayer box, speaking request → email arrives and appears in Messages

@@ -11,7 +11,7 @@ import { EventsSection } from "@/components/sanctuary/EventsSection";
 import { TestimonialsSection } from "@/components/sanctuary/TestimonialsSection";
 import { NewsletterSection } from "@/components/sanctuary/NewsletterSection";
 import { ContactFooter } from "@/components/sanctuary/ContactFooter";
-import { getFeaturedBook, getResources, getTestimonials, getUpcomingEvents } from "@/lib/content/queries";
+import { getFeaturedBook, getNewsletterSettings, getResources, getTestimonials, getUpcomingEvents } from "@/lib/content/queries";
 import { pageMetadata, personSchema, websiteSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 
@@ -26,11 +26,12 @@ export const metadata: Metadata = pageMetadata({
 export const revalidate = 3600;
 
 export default async function Home() {
-  const [{ featured }, events, resources, testimonials] = await Promise.all([
+  const [{ featured }, events, resources, testimonials, newsletter] = await Promise.all([
     getFeaturedBook(),
     getUpcomingEvents(),
     getResources(),
     getTestimonials(),
+    getNewsletterSettings(),
   ]);
 
   return (
@@ -65,7 +66,7 @@ export default async function Home() {
       <TestimonialsSection testimonials={testimonials} />
 
       {/* Monthly Encouragement Newsletter */}
-      <NewsletterSection />
+      <NewsletterSection settings={newsletter} />
 
       {/* Contact Form & Footer */}
       <ContactFooter />

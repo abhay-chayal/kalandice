@@ -1,8 +1,8 @@
 import "server-only";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createPublicClient } from "@/lib/supabase/server";
-import { fallbackBooks, fallbackEvents, fallbackPosts, fallbackResources, fallbackTestimonials } from "./fallback";
-import type { Book, Post, Resource, ResourceGroups, SiteEvent, Testimonial } from "./types";
+import { defaultNewsletterSettings, fallbackBooks, fallbackEvents, fallbackPosts, fallbackResources, fallbackTestimonials } from "./fallback";
+import type { Book, NewsletterSettings, Post, Resource, ResourceGroups, SiteEvent, Testimonial } from "./types";
 
 export type { ResourceGroups };
 
@@ -114,4 +114,30 @@ export async function getTestimonials(): Promise<Testimonial[]> {
     return fallbackTestimonials;
   }
   return data as Testimonial[];
+}
+
+export const NEWSLETTER_SETTINGS_KEY = "newsletter";
+
+// Any field she leaves blank falls back to the built-in wording, so the section
+// can never render with an empty heading.
+export async function getNewsletterSettings(): Promise<NewsletterSettings> {
+  if (!isSupabaseConfigured) return defaultNewsletterSettings;
+  const { data, error } = await createPublicClient()
+    .from("site_settings")
+    .select("value")
+    .eq("key", NEWSLETTER_SETTINGS_KEY)
+    .maybeSingle();
+  if (error) {
+    console.error("getNewsletterSettings", error.message);
+    return defaultNewsletterSettings;
+  }
+  const saved = (data?.value ?? {}) as Partial<NewsletterSettings>;
+  return {
+    eyebrow: saved.eyebrow?.trim() || defaultNewsletterSettings.eyebrow,
+    heading: saved.heading?.trim() || defaultNewsletterSettings.heading,
+    intro: saved.intro?.trim() || defaultNewsletterSettings.intro,
+    placeholder: saved.placeholder?.trim() || defaultNewsletterSettings.placeholder,
+    button_label: saved.button_label?.trim() || defaultNewsletterSettings.button_label,
+    success_message: saved.success_message?.trim() || defaultNewsletterSettings.success_message,
+  };
 }

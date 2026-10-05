@@ -91,3 +91,12 @@ export interface Testimonial {
   sort_order: number;
   published: boolean;
 }
+
+export interface NewsletterSettings {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  placeholder: string;
+  button_label: string;
+  success_message: string;
+}

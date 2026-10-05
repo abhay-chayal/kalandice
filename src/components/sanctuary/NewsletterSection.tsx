@@ -4,10 +4,11 @@ import React, { useActionState, useEffect } from "react";
 import { Send, Sparkles, CheckCircle2, Loader2 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { subscribe, type FormState } from "@/app/actions/forms";
+import type { NewsletterSettings } from "@/lib/content/types";
 
 const initialState: FormState = { status: "idle", message: "" };
 
-export function NewsletterSection() {
+export function NewsletterSection({ settings }: { settings: NewsletterSettings }) {
   const [state, formAction, pending] = useActionState(subscribe, initialState);
 
   useEffect(() => {
@@ -28,22 +29,22 @@ export function NewsletterSection() {
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-[#D4AF37] border border-[#C9A44C]/30 text-xs font-semibold uppercase tracking-widest mb-4">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Monthly Encouragement Sanctuary</span>
+          <span>{settings.eyebrow}</span>
         </div>
 
         <h2 className="font-serif-luxury text-3xl sm:text-5xl font-bold text-white leading-tight mb-4">
-          Receive Monthly Words of Hope &amp; Prayer
+          {settings.heading}
         </h2>
 
         <p className="text-[#E5ECE6] text-base max-w-xl mx-auto mb-8">
-          Join Kalandice&apos;s quiet circle. Receive fresh poetry excerpts, scripture reflection prompts, and encouraging prayers delivered softly to your inbox once a month.
+          {settings.intro}
         </p>
 
         {state.status === "success" ? (
           <div role="status" className="p-6 rounded-2xl bg-white/10 border border-[#C9A44C]/40 inline-flex items-center gap-3 text-[#D4AF37] max-w-md mx-auto">
             <CheckCircle2 className="w-6 h-6 shrink-0" />
             <span className="text-sm font-medium text-left">
-              {state.message}
+              {settings.success_message}
             </span>
           </div>
         ) : (
@@ -56,7 +57,7 @@ export function NewsletterSection() {
               type="email"
               name="email"
               aria-label="Email address"
-              placeholder="Enter your email address..."
+              placeholder={settings.placeholder}
               required
               maxLength={200}
               className="w-full px-5 py-4 rounded-full bg-white/90 text-[#193323] placeholder-[#536458] text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A44C]"
@@ -66,7 +67,7 @@ export function NewsletterSection() {
               disabled={pending}
               className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#C9A44C] text-[#193323] font-bold text-sm hover:bg-[#e6ca65] transition-all shadow-lg shrink-0 flex items-center justify-center gap-2 disabled:opacity-70"
             >
-              <span>{pending ? "Joining..." : "Subscribe"}</span>
+              <span>{pending ? "Joining..." : settings.button_label}</span>
               {pending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             </button>
           </form>

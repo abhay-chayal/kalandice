@@ -306,6 +306,31 @@ export async function deleteTestimonial(fd: FormData) {
 }
 
 // ---------------------------------------------------------------------------
+// Newsletter signup wording
+// ---------------------------------------------------------------------------
+
+export async function saveNewsletterSettings(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  const { supabase } = await requireAdmin();
+
+  const value = {
+    eyebrow: str(fd, "eyebrow", 80),
+    heading: str(fd, "heading", 160),
+    intro: str(fd, "intro", 600),
+    placeholder: str(fd, "placeholder", 80),
+    button_label: str(fd, "button_label", 40),
+    success_message: str(fd, "success_message", 300),
+  };
+
+  const { error } = await supabase
+    .from("site_settings")
+    .upsert({ key: "newsletter", value }, { onConflict: "key" });
+  if (error) return { error: friendlyDbError(error, "newsletter wording") };
+
+  refreshSite();
+  redirect("/admin/newsletter?saved=1");
+}
+
+// ---------------------------------------------------------------------------
 // Messages & subscribers (not shown publicly, so no site refresh needed)
 // ---------------------------------------------------------------------------
 

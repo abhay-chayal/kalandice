@@ -13,6 +13,7 @@ import {
   LayoutDashboard,
   LogOut,
   Mail,
+  Megaphone,
   Menu,
   NotebookPen,
   UserRound,
@@ -30,6 +31,7 @@ const links = [
   { href: "/admin/testimonials", label: "Reader Quotes", icon: MessageSquareQuote },
   { href: "/admin/messages", label: "Messages", icon: Mail },
   { href: "/admin/subscribers", label: "Subscribers", icon: Users },
+  { href: "/admin/newsletter", label: "Newsletter Text", icon: Megaphone },
   { href: "/admin/account", label: "Account", icon: UserRound },
 ];
 

@@ -84,6 +84,23 @@ Please only add quotes from real readers who are happy for you to share them. A 
 
 ---
 
+## Newsletter signup wording
+
+The signup box at the bottom of your home page is yours to word however you like.
+
+1. Click **Newsletter Text**.
+2. Change the heading, the description, the button, or the thank-you message.
+3. Click **Save wording**.
+
+A gentle suggestion: only promise what you'd enjoy keeping to. "Occasional words of
+encouragement" is easier to live with than "every month" — and you can always change it later.
+
+**Sending the newsletter itself:** go to **Subscribers** and click **Download spreadsheet
+(CSV)**, then upload that file to a free service like MailerLite or Mailchimp and write your
+letter there. They handle unsubscribe links and the rules around marketing email for you.
+
+---
+
 ## Messages & prayer requests
 
 Everything people send through your contact form, prayer box and speaking request form shows

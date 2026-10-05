@@ -169,6 +169,29 @@ create trigger testimonials_touch before update on public.testimonials
   for each row execute function public.touch_updated_at();
 
 -- ---------------------------------------------------------------------------
+-- Editable site settings (currently the newsletter signup wording)
+-- ---------------------------------------------------------------------------
+create table if not exists public.site_settings (
+  key        text primary key,
+  value      jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+drop trigger if exists site_settings_touch on public.site_settings;
+create trigger site_settings_touch before update on public.site_settings
+  for each row execute function public.touch_updated_at();
+
+alter table public.site_settings enable row level security;
+
+drop policy if exists "public read settings" on public.site_settings;
+create policy "public read settings" on public.site_settings
+  for select to anon, authenticated using (true);
+
+drop policy if exists "admin writes settings" on public.site_settings;
+create policy "admin writes settings" on public.site_settings
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+-- ---------------------------------------------------------------------------
 -- Form submissions
 -- ---------------------------------------------------------------------------
 create table if not exists public.messages (

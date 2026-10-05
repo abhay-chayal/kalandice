@@ -1,4 +1,4 @@
-import type { Book, Post, Resource, SiteEvent, Testimonial } from "./types";
+import type { Book, NewsletterSettings, Post, Resource, SiteEvent, Testimonial } from "./types";
 
 // Content shown when Supabase isn't configured yet (local dev, first deploy).
 // supabase/seed.sql loads the same rows into the database so the site looks
@@ -209,3 +209,14 @@ export const fallbackResources: Resource[] = [
 // Deliberately empty: the Reader Reflections section stays hidden until Kalandice
 // adds real, permission-given reader quotes in the dashboard.
 export const fallbackTestimonials: Testimonial[] = [];
+
+// Wording shown before Kalandice edits it in the dashboard.
+export const defaultNewsletterSettings: NewsletterSettings = {
+  eyebrow: "Monthly Encouragement Sanctuary",
+  heading: "Receive Monthly Words of Hope & Prayer",
+  intro:
+    "Join Kalandice's quiet circle. Receive fresh poetry excerpts, scripture reflection prompts, and encouraging prayers delivered softly to your inbox.",
+  placeholder: "Enter your email address...",
+  button_label: "Subscribe",
+  success_message: "You're in! Watch your inbox for monthly words of hope.",
+};
