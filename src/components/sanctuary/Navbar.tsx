@@ -50,7 +50,7 @@ export function Navbar() {
           <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden border-2 border-[#C9A44C]/40 shadow-sm group-hover:scale-105 transition-transform duration-300 shrink-0">
             <Image
               src="/images/logo.webp"
-              alt="Kalandice Thomas Logo"
+              alt="Encouraging Poetics logo"
               fill
               sizes="44px"
               className="object-cover"
@@ -113,7 +113,7 @@ export function Navbar() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             type="button"
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/90 border border-[#5F8067]/25 text-[#193323] hover:bg-[#193323] hover:text-[#FAF7F2] transition-colors shadow-xs flex items-center justify-center shrink-0 cursor-pointer touch-manipulation z-30"
+            className="w-11 h-11 rounded-xl bg-white/90 border border-[#5F8067]/25 text-[#193323] hover:bg-[#193323] hover:text-[#FAF7F2] transition-colors shadow-xs flex items-center justify-center shrink-0 cursor-pointer touch-manipulation z-30"
             aria-label="Toggle navigation menu"
             title="Toggle Menu"
           >

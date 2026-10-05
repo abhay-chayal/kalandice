@@ -27,7 +27,7 @@ export function HeroSection() {
           <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-[#FAF7F2]">
             <Image
               src="/images/logo.webp"
-              alt="Encouraging Poetics Brand Vision Logo"
+              alt="Encouraging Poetics logo"
               fill
               sizes="(min-width: 640px) 144px, 112px"
               className="object-cover"

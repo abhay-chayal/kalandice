@@ -69,7 +69,7 @@ export function ContactView() {
             <div className="p-8 rounded-3xl bg-white border border-[#5F8067]/20 shadow-md space-y-6">
               <div className="flex items-center gap-4">
                 <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#C9A44C]">
-                  <Image src="/images/logo.webp" alt="Kalandice Logo" fill sizes="56px" className="object-cover" />
+                  <Image src="/images/logo.webp" alt="Encouraging Poetics logo" fill sizes="56px" className="object-cover" />
                 </div>
                 <div>
                   <h3 className="font-serif-luxury text-xl font-bold text-[#193323]">Kalandice Thomas</h3>

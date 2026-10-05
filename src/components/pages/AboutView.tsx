@@ -12,11 +12,11 @@ import { CONTACT_EMAIL, SOCIAL_LINKS } from "@/lib/site";
 
 export function AboutView() {
   const galleryImages = [
-    { src: "/images/author-reading-field.webp", title: "Quiet Reflection in Nature", caption: "Seeking peace and clarity in God's creation" },
-    { src: "/images/author-butterfly-mural.webp", title: "Embracing Transformation", caption: "Standing with the vibrant butterfly mural" },
-    { src: "/images/author-hallway.webp", title: "Sharing Encouraging Poetics", caption: "Holding her published book in Dallas archways" },
-    { src: "/images/author-butterfly-portrait.webp", title: "Artistic Joy & Hope", caption: "Celebrating faith and creative expression" },
-    { src: "/images/author-wide-field.webp", title: "Seasons of Prayer", caption: "Grounded in God's word through life's transitions" },
+    { src: "/images/author-reading-field.webp", title: "Quiet Reflection in Nature", caption: "Seeking peace and clarity in God's creation", alt: "Kalandice Thomas reading in a sunlit open field" },
+    { src: "/images/author-butterfly-mural.webp", title: "Embracing Transformation", caption: "Standing with the vibrant butterfly mural", alt: "Kalandice Thomas standing in front of a colourful butterfly mural" },
+    { src: "/images/author-hallway.webp", title: "Sharing Encouraging Poetics", caption: "Holding her published book in Dallas archways", alt: "Kalandice Thomas holding her book Encouraging Poetics in an archway" },
+    { src: "/images/author-butterfly-portrait.webp", title: "Artistic Joy & Hope", caption: "Celebrating faith and creative expression", alt: "Portrait of Kalandice Thomas beside butterfly artwork" },
+    { src: "/images/author-wide-field.webp", title: "Seasons of Prayer", caption: "Grounded in God's word through life's transitions", alt: "Kalandice Thomas walking through a wide green field" },
   ];
 
   const [activePhoto, setActivePhoto] = useState(galleryImages[0]);
@@ -59,7 +59,7 @@ export function AboutView() {
             <div className="relative h-[420px] sm:h-[500px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
               <Image
                 src={activePhoto.src}
-                alt={activePhoto.title}
+                alt={activePhoto.alt}
                 fill
                 priority
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -85,7 +85,7 @@ export function AboutView() {
                       : "border-transparent opacity-60 hover:opacity-100"
                   }`}
                 >
-                  <Image src={img.src} alt={img.title} fill sizes="120px" className="object-cover" />
+                  <Image src={img.src} alt="" fill sizes="120px" className="object-cover" />
                 </button>
               ))}
             </div>
@@ -113,13 +113,13 @@ export function AboutView() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="p-4 rounded-2xl bg-white border border-[#5F8067]/15 shadow-xs">
                 <GraduationCap className="w-5 h-5 text-[#C9A44C] mb-2" />
-                <h4 className="font-serif-luxury font-bold text-sm text-[#193323]">Texas Woman&apos;s University</h4>
+                <h3 className="font-serif-luxury font-bold text-sm text-[#193323]">Texas Woman&apos;s University</h3>
                 <p className="text-xs text-[#536458]">Academic excellence &amp; lifelong dedication to uplifting others.</p>
               </div>
 
               <div className="p-4 rounded-2xl bg-white border border-[#5F8067]/15 shadow-xs">
                 <Coffee className="w-5 h-5 text-[#C9A44C] mb-2" />
-                <h4 className="font-serif-luxury font-bold text-sm text-[#193323]">Tea &amp; Studio Ghibli</h4>
+                <h3 className="font-serif-luxury font-bold text-sm text-[#193323]">Tea &amp; Studio Ghibli</h3>
                 <p className="text-xs text-[#536458]">Finding whimsical magic in quiet mornings and simple joys.</p>
               </div>
             </div>
@@ -159,7 +159,7 @@ export function AboutView() {
           </blockquote>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full border-2 border-[#C9A44C] overflow-hidden relative">
-              <Image src="/images/logo.webp" alt="Kalandice Logo" fill sizes="40px" className="object-cover" />
+              <Image src="/images/logo.webp" alt="Encouraging Poetics logo" fill sizes="40px" className="object-cover" />
             </div>
             <div>
               <p className="font-bold text-white text-sm">Kalandice Thomas</p>

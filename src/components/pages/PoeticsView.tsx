@@ -217,9 +217,9 @@ export function PoeticsView() {
                     </button>
                   </div>
 
-                  <h3 className="font-serif-luxury text-xl font-bold text-[#193323] group-hover:text-[#5F8067] transition-colors mb-2">
+                  <h2 className="font-serif-luxury text-xl font-bold text-[#193323] group-hover:text-[#5F8067] transition-colors mb-2">
                     {poem.title}
-                  </h3>
+                  </h2>
 
                   <p className="font-serif-luxury italic text-xs text-[#536458] leading-relaxed mb-4">
                     &ldquo;{poem.excerpt}&rdquo;
@@ -267,9 +267,9 @@ export function PoeticsView() {
                 {activePoem.category}
               </span>
 
-              <h3 className="font-serif-luxury text-3xl font-bold text-[#193323]">
+              <h2 className="font-serif-luxury text-3xl font-bold text-[#193323]">
                 {activePoem.title}
-              </h3>
+              </h2>
 
               <div className="space-y-3 font-serif-luxury italic text-lg text-[#254631] leading-relaxed p-6 rounded-2xl bg-white border border-[#5F8067]/15">
                 {activePoem.fullContent.map((line, idx) => (

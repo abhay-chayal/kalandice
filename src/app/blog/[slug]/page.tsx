@@ -119,7 +119,7 @@ export default async function BlogPostDetailPage({ params }: Props) {
         {/* Author Bio Footer Block */}
         <div className="p-6 rounded-2xl bg-white border border-[#5F8067]/15 flex items-center gap-4">
           <div className="w-12 h-12 rounded-full overflow-hidden relative border-2 border-[#C9A44C] shrink-0">
-            <Image src="/images/logo.webp" alt="Kalandice Thomas" fill sizes="48px" className="object-cover" />
+            <Image src="/images/logo.webp" alt="Encouraging Poetics logo" fill sizes="48px" className="object-cover" />
           </div>
           <div>
             <p className="font-serif-luxury font-bold text-sm text-[#193323]">Written by Kalandice Thomas</p>

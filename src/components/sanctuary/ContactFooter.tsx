@@ -48,7 +48,7 @@ export function ContactFooter({ showContactBlock = true }: { showContactBlock?: 
               <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#C9A44C] shadow-lg">
                 <Image
                   src="/images/logo.webp"
-                  alt="Kalandice Thomas Logo"
+                  alt="Encouraging Poetics logo"
                   fill
                   sizes="64px"
                   className="object-cover"

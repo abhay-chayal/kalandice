@@ -28,6 +28,24 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [supabaseImagePattern()],
   },
+
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          // Stop the browser second-guessing file types (a classic XSS vector).
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          // Nobody should be able to frame her site inside theirs.
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          // Send the page address to other sites, but never the query string.
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          // The site asks for none of these, so switch them off.
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

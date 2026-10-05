@@ -74,9 +74,9 @@ export function EventsView({ events }: { events: SiteEvent[] }) {
                   {ev.category}
                 </span>
 
-                <h3 className="font-serif-luxury text-xl font-bold text-[#193323] mb-3">
+                <h2 className="font-serif-luxury text-xl font-bold text-[#193323] mb-3">
                   {ev.title}
-                </h3>
+                </h2>
 
                 <div className="space-y-2 text-xs text-[#536458] mb-4">
                   <p className="flex items-center gap-2">
