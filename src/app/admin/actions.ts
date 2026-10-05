@@ -48,8 +48,11 @@ function dateOrNull(fd: FormData, name: string) {
 }
 
 // Every page reads CMS content, so refresh the whole site after any change.
+// The sitemap is a separate cache entry and has to be named explicitly, or it
+// keeps listing posts that have since been unpublished or deleted.
 function refreshSite() {
   revalidatePath("/", "layout");
+  revalidatePath("/sitemap.xml");
 }
 
 function friendlyDbError(error: { code?: string; message: string }, what: string) {
