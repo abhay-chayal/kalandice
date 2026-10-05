@@ -38,13 +38,13 @@ export function AboutView() {
             <span className="font-serif-luxury italic text-xs text-[#193323]">
               &ldquo;The Lord is my shepherd, I lack nothing&rdquo;
             </span>
-            <span className="text-[10px] font-mono text-[#C9A44C] font-semibold">Psalm 23:1</span>
+            <span className="text-[10px] font-mono text-[#7A5E16] font-semibold">Psalm 23:1</span>
           </motion.div>
 
           <h1 className="font-serif-luxury text-4xl sm:text-6xl font-bold text-[#193323] leading-tight mb-4">
             The Author&apos;s Heart &amp; Testimony
           </h1>
-          <p className="font-script-poetry text-2xl sm:text-3xl text-[#C9A44C] max-w-2xl mx-auto">
+          <p className="font-script-poetry text-2xl sm:text-3xl text-[#7A5E16] max-w-2xl mx-auto">
             A blend of honesty, kindness, quiet strength, and unwavering faith.
           </p>
         </div>

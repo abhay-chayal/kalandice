@@ -17,7 +17,7 @@ export function BookView({ book, others }: { book: Book | null; others: Book[] }
   const excerpts = [
     {
       chapter: "Chapter 1: Healing & Peace",
-      title: "Quiet waters of Psalms 23",
+      title: "Quiet waters of Psalm 23",
       stanzas: [
         "When the noise of the world grows loud and deep,",
         "He leads my heart to quiet streams",
@@ -77,7 +77,7 @@ export function BookView({ book, others }: { book: Book | null; others: Book[] }
             {book?.title ?? "Books by Kalandice Thomas"}
           </h1>
           {book?.subtitle && (
-            <p className="font-script-poetry text-2xl sm:text-3xl text-[#C9A44C] max-w-2xl mx-auto">
+            <p className="font-script-poetry text-2xl sm:text-3xl text-[#7A5E16] max-w-2xl mx-auto">
               {book.subtitle}
             </p>
           )}
@@ -185,7 +185,7 @@ export function BookView({ book, others }: { book: Book | null; others: Book[] }
       {/* Interactive Excerpt & Chapter Previewer */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <div className="text-center mb-10">
-          <span className="text-xs font-semibold uppercase tracking-widest text-[#5F8067]">Inside the Book</span>
+          <span className="text-xs font-semibold uppercase tracking-widest text-[#4A6B52]">Inside the Book</span>
           <h2 className="font-serif-luxury text-3xl font-bold text-[#193323] mt-1">Sample Chapter Excerpts</h2>
         </div>
 
@@ -202,7 +202,7 @@ export function BookView({ book, others }: { book: Book | null; others: Book[] }
                     : "bg-white text-[#536458] border-[#5F8067]/15 hover:bg-[#193323]/5"
                 }`}
               >
-                <p className="text-[11px] font-mono uppercase text-[#C9A44C]">{ex.chapter}</p>
+                <p className={`text-[11px] font-mono uppercase ${activeExcerpt === idx ? "text-[#D4AF37]" : "text-[#7A5E16]"}`}>{ex.chapter}</p>
                 <p className="font-serif-luxury font-bold text-sm mt-0.5">{ex.title}</p>
               </button>
             ))}
@@ -211,7 +211,7 @@ export function BookView({ book, others }: { book: Book | null; others: Book[] }
           {/* Excerpt Stanzas Card */}
           <div className="md:col-span-8 p-8 rounded-3xl bg-white border border-[#5F8067]/20 shadow-md space-y-6">
             <div>
-              <span className="text-xs font-semibold text-[#5F8067] uppercase">{excerpts[activeExcerpt].chapter}</span>
+              <span className="text-xs font-semibold text-[#4A6B52] uppercase">{excerpts[activeExcerpt].chapter}</span>
               <h3 className="font-serif-luxury text-2xl font-bold text-[#193323] mt-1">{excerpts[activeExcerpt].title}</h3>
             </div>
 
@@ -222,7 +222,7 @@ export function BookView({ book, others }: { book: Book | null; others: Book[] }
             </div>
 
             <div className="p-4 rounded-2xl bg-[#193323]/5 border border-[#5F8067]/15">
-              <p className="text-xs font-semibold uppercase text-[#C9A44C]">🌱 Quiet Reflection Prompt:</p>
+              <p className="text-xs font-semibold uppercase text-[#7A5E16]">🌱 Quiet Reflection Prompt:</p>
               <p className="text-xs text-[#193323] font-medium mt-1">{excerpts[activeExcerpt].reflection}</p>
             </div>
           </div>
@@ -232,7 +232,7 @@ export function BookView({ book, others }: { book: Book | null; others: Book[] }
       {/* More Books / Future Releases */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div className="text-center mb-10">
-          <span className="text-xs font-semibold uppercase tracking-widest text-[#5F8067]">The Bookshelf</span>
+          <span className="text-xs font-semibold uppercase tracking-widest text-[#4A6B52]">The Bookshelf</span>
           <h2 className="font-serif-luxury text-3xl font-bold text-[#193323] mt-1">More from Kalandice</h2>
         </div>
 
@@ -262,7 +262,7 @@ export function BookView({ book, others }: { book: Book | null; others: Book[] }
                 </div>
                 <div className="space-y-2 flex-1">
                   <h3 className="font-serif-luxury text-xl font-bold text-[#193323]">{b.title}</h3>
-                  {b.subtitle && <p className="font-script-poetry text-lg text-[#C9A44C]">{b.subtitle}</p>}
+                  {b.subtitle && <p className="font-script-poetry text-lg text-[#7A5E16]">{b.subtitle}</p>}
                   <p className="text-xs text-[#536458] leading-relaxed whitespace-pre-line">{b.description}</p>
                 </div>
                 {b.buy_url && (

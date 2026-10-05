@@ -54,7 +54,7 @@ export function ContactView() {
           <h1 className="font-serif-luxury text-4xl sm:text-6xl font-bold text-[#193323]">
             Reach Out &amp; Connect
           </h1>
-          <p className="font-script-poetry text-2xl sm:text-3xl text-[#C9A44C]">
+          <p className="font-script-poetry text-2xl sm:text-3xl text-[#7A5E16]">
             We are cheering you on in faith and prayer.
           </p>
         </div>
@@ -73,7 +73,7 @@ export function ContactView() {
                 </div>
                 <div>
                   <h3 className="font-serif-luxury text-xl font-bold text-[#193323]">Kalandice Thomas</h3>
-                  <p className="font-script-poetry text-xs text-[#C9A44C]">Encouraging Poetics Author</p>
+                  <p className="font-script-poetry text-xs text-[#7A5E16]">Encouraging Poetics Author</p>
                 </div>
               </div>
 
@@ -198,7 +198,7 @@ export function ContactView() {
         </div>
       </section>
 
-      <ContactFooter />
+      <ContactFooter showContactBlock={false} />
     </main>
   );
 }

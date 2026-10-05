@@ -32,6 +32,10 @@ export const metadata: Metadata = {
   applicationName: "Encouraging Poetics",
   authors: [{ name: "Kalandice Thomas" }],
   keywords: ["Kalandice Thomas", "Encouraging Poetics", "Christian poetry", "faith", "hope", "healing", "devotionals"],
+  // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in Vercel to verify Google Search Console.
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
   openGraph: {
     type: "website",
     siteName: "Encouraging Poetics",

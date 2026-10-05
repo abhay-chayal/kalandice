@@ -68,7 +68,7 @@ export function BookSection({ book }: { book: Book | null }) {
             </h2>
 
             {book.subtitle && (
-              <p className="font-script-poetry text-2xl text-[#C9A44C]">
+              <p className="font-script-poetry text-2xl text-[#7A5E16]">
                 {book.subtitle}
               </p>
             )}

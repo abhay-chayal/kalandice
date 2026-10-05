@@ -45,9 +45,9 @@ export function HeroSection() {
         >
           <Sun className="w-4 h-4 text-[#C9A44C] animate-spin-slow" />
           <span className="font-serif-luxury italic text-xs sm:text-sm text-[#193323] font-medium">
-            &ldquo;The Lord is My Shepherd I Lack Nothing&rdquo;
+            &ldquo;The Lord is my shepherd, I lack nothing&rdquo;
           </span>
-          <span className="text-[11px] font-mono text-[#C9A44C] font-semibold tracking-wider">
+          <span className="text-[11px] font-mono text-[#7A5E16] font-semibold tracking-wider">
             Psalm 23:1 NIV
           </span>
         </motion.div>
@@ -67,7 +67,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4 }}
-          className="font-script-poetry text-2xl sm:text-4xl text-[#C9A44C] max-w-2xl mx-auto mb-6 tracking-wide"
+          className="font-script-poetry text-2xl sm:text-4xl text-[#7A5E16] max-w-2xl mx-auto mb-6 tracking-wide"
         >
           Finding Hope. Healing Through Faith. One Poem At A Time.
         </motion.p>
@@ -86,23 +86,23 @@ export function HeroSection() {
             <span className="px-2.5 py-1 rounded-lg bg-white/70 shadow-xs border border-[#5F8067]/10 text-rose-800">
               Pain
             </span>
-            <span className="text-[#C9A44C]">↓</span>
+            <span className="text-[#7A5E16]">↓</span>
             <span className="px-2.5 py-1 rounded-lg bg-white/70 shadow-xs border border-[#5F8067]/10 text-amber-800">
               Hope
             </span>
-            <span className="text-[#C9A44C]">↓</span>
+            <span className="text-[#7A5E16]">↓</span>
             <span className="px-2.5 py-1 rounded-lg bg-white/70 shadow-xs border border-[#5F8067]/10 text-emerald-800">
               Healing
             </span>
-            <span className="text-[#C9A44C]">↓</span>
+            <span className="text-[#7A5E16]">↓</span>
             <span className="px-2.5 py-1 rounded-lg bg-white/70 shadow-xs border border-[#5F8067]/10 text-teal-800">
               Faith
             </span>
-            <span className="text-[#C9A44C]">↓</span>
+            <span className="text-[#7A5E16]">↓</span>
             <span className="px-2.5 py-1 rounded-lg bg-white/70 shadow-xs border border-[#5F8067]/10 text-indigo-800">
               Encouragement
             </span>
-            <span className="text-[#C9A44C]">↓</span>
+            <span className="text-[#7A5E16]">↓</span>
             <span className="px-2.5 py-1 rounded-lg bg-[#193323] text-[#D4AF37] shadow-sm font-semibold">
               Action
             </span>

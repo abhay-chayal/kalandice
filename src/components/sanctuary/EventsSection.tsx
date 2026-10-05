@@ -35,7 +35,7 @@ export function EventsSection({ events }: { events: SiteEvent[] }) {
               className="p-8 rounded-3xl bg-white border border-[#5F8067]/20 shadow-sm hover:shadow-xl transition-all relative flex flex-col justify-between"
             >
               <div>
-                <span className="inline-block px-3 py-1 rounded-full bg-[#193323]/5 text-[#5F8067] text-[11px] font-semibold mb-4">
+                <span className="inline-block px-3 py-1 rounded-full bg-[#193323]/5 text-[#4A6B52] text-[11px] font-semibold mb-4">
                   {event.category}
                 </span>
 
@@ -63,8 +63,8 @@ export function EventsSection({ events }: { events: SiteEvent[] }) {
                 href="/events"
                 className="mt-6 pt-4 border-t border-[#5F8067]/10 flex items-center justify-between text-xs font-semibold text-[#193323] hover:text-[#C9A44C] transition-colors"
               >
-                <span>RSVP / Event Details</span>
-                <span className="text-[#C9A44C]">→</span>
+                <span>See Event Details</span>
+                <span className="text-[#7A5E16]">→</span>
               </Link>
             </motion.div>
           ))}

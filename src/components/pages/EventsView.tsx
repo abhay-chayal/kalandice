@@ -32,7 +32,7 @@ export function EventsView({ events }: { events: SiteEvent[] }) {
           <h1 className="font-serif-luxury text-4xl sm:text-6xl font-bold text-[#193323]">
             Upcoming Events &amp; Open Mics
           </h1>
-          <p className="font-script-poetry text-2xl sm:text-3xl text-[#C9A44C]">
+          <p className="font-script-poetry text-2xl sm:text-3xl text-[#7A5E16]">
             Gather with us for poetry, encouragement, and fellowship.
           </p>
 
@@ -70,7 +70,7 @@ export function EventsView({ events }: { events: SiteEvent[] }) {
                     <CmsImage src={ev.image_url} alt={ev.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
                   </div>
                 )}
-                <span className="inline-block px-3 py-1 rounded-full bg-[#193323]/5 text-[#5F8067] text-[11px] font-semibold mb-4">
+                <span className="inline-block px-3 py-1 rounded-full bg-[#193323]/5 text-[#4A6B52] text-[11px] font-semibold mb-4">
                   {ev.category}
                 </span>
 
@@ -99,7 +99,7 @@ export function EventsView({ events }: { events: SiteEvent[] }) {
                   rel="noopener noreferrer"
                   className="mt-6 pt-4 border-t border-[#5F8067]/10 flex items-center justify-between text-xs font-semibold text-[#193323] hover:text-[#C9A44C] transition-colors"
                 >
-                  <span>RSVP / Details</span>
+                  <span>RSVP / Tickets</span>
                   <ArrowUpRight className="w-4 h-4 text-[#C9A44C]" />
                 </a>
               ) : (
@@ -108,7 +108,7 @@ export function EventsView({ events }: { events: SiteEvent[] }) {
                   className="mt-6 pt-4 border-t border-[#5F8067]/10 flex items-center justify-between text-xs font-semibold text-[#193323] hover:text-[#C9A44C] transition-colors"
                 >
                   <span>Ask About This Event</span>
-                  <span className="text-[#C9A44C]">→</span>
+                  <span className="text-[#7A5E16]">→</span>
                 </a>
               )}
             </motion.div>

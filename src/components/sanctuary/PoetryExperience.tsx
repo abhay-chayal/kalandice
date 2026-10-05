@@ -19,7 +19,7 @@ interface Poem {
 const poemsData: Poem[] = [
   {
     id: "poem-1",
-    title: "Quiet waters of Psalms 23",
+    title: "Quiet waters of Psalm 23",
     category: "Healing & Peace",
     excerpt: "When the noise of the world grows loud and deep, He leads my heart to quiet streams...",
     fullContent: [
@@ -168,7 +168,7 @@ export function PoetryExperience() {
                     <button
                       onClick={(e) => toggleSavePoem(poem.id, e)}
                       className={`p-2 rounded-full transition-colors ${
-                        isSaved ? "bg-[#C9A44C]/20 text-[#C9A44C]" : "text-[#536458] hover:bg-[#193323]/5"
+                        isSaved ? "bg-[#C9A44C]/20 text-[#7A5E16]" : "text-[#536458] hover:bg-[#193323]/5"
                       }`}
                       title={isSaved ? "Saved to your Sanctuary" : "Save Affirmation"}
                     >
@@ -186,7 +186,7 @@ export function PoetryExperience() {
                 </div>
 
                 <div className="pt-4 border-t border-[#5F8067]/10 flex items-center justify-between text-xs text-[#193323] font-medium">
-                  <span className="flex items-center gap-1.5 text-[#C9A44C]">
+                  <span className="flex items-center gap-1.5 text-[#7A5E16]">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>Enter Sanctuary View</span>
                   </span>
@@ -243,7 +243,7 @@ export function PoetryExperience() {
               {/* Reflection & Affirmation Box */}
               <div className="space-y-4 mb-8">
                 <div className="p-4 rounded-2xl bg-[#193323]/5 border border-[#5F8067]/15">
-                  <p className="text-xs uppercase tracking-wider text-[#C9A44C] font-semibold mb-1">
+                  <p className="text-xs uppercase tracking-wider text-[#7A5E16] font-semibold mb-1">
                     🌱 Quiet Reflection Prompt:
                   </p>
                   <p className="text-sm text-[#193323] font-medium">
@@ -252,13 +252,13 @@ export function PoetryExperience() {
                 </div>
 
                 <div className="p-4 rounded-2xl bg-[#193323] text-[#FAF7F2]">
-                  <p className="text-xs uppercase tracking-wider text-[#C9A44C] font-semibold mb-1">
+                  <p className="text-xs uppercase tracking-wider text-[#7A5E16] font-semibold mb-1">
                     ✨ Daily Affirmation:
                   </p>
                   <p className="font-serif-luxury text-sm text-white">
                     {activePoem.affirmation}
                   </p>
-                  <p className="text-[11px] text-[#C9A44C] font-mono mt-2">
+                  <p className="text-[11px] text-[#7A5E16] font-mono mt-2">
                     {activePoem.scripture}
                   </p>
                 </div>

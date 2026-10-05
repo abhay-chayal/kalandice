@@ -28,7 +28,7 @@ export function ResourcesView({ resources }: { resources: ResourceGroups }) {
           <h1 className="font-serif-luxury text-4xl sm:text-6xl font-bold text-[#193323]">
             Resources for Spirit &amp; Mind
           </h1>
-          <p className="font-script-poetry text-2xl sm:text-3xl text-[#C9A44C]">
+          <p className="font-script-poetry text-2xl sm:text-3xl text-[#7A5E16]">
             Carefully curated tools for your healing journey.
           </p>
         </div>
@@ -90,7 +90,7 @@ export function ResourcesView({ resources }: { resources: ResourceGroups }) {
                   className="p-5 rounded-2xl bg-white border border-[#5F8067]/15 hover:border-[#193323] hover:shadow-md transition-all flex flex-col justify-between group"
                 >
                   <div>
-                    <span className="px-2 py-0.5 rounded-md bg-[#193323]/5 text-[10px] font-semibold text-[#5F8067]">
+                    <span className="px-2 py-0.5 rounded-md bg-[#193323]/5 text-[10px] font-semibold text-[#4A6B52]">
                       {res.tag || "Resource"}
                     </span>
                     <h3 className="font-serif-luxury text-sm font-bold text-[#193323] mt-2 mb-1 group-hover:text-[#5F8067] transition-colors">
@@ -149,7 +149,7 @@ export function ResourcesView({ resources }: { resources: ResourceGroups }) {
       <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
         <div className="p-8 rounded-3xl bg-white border border-[#5F8067]/20 shadow-md flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="text-left space-y-1">
-            <div className="inline-flex items-center gap-1.5 text-xs text-[#C9A44C] font-semibold">
+            <div className="inline-flex items-center gap-1.5 text-xs text-[#7A5E16] font-semibold">
               <FileText className="w-4 h-4" />
               <span>Free Sanctuary Resource</span>
             </div>

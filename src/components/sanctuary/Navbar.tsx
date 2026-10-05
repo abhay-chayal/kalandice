@@ -61,7 +61,7 @@ export function Navbar() {
             <span className="font-serif-luxury text-sm sm:text-lg tracking-tight font-semibold text-[#193323] leading-tight group-hover:text-[#5F8067] transition-colors truncate">
               Kalandice Thomas
             </span>
-            <span className="font-script-poetry text-[11px] sm:text-xs text-[#C9A44C] tracking-wide truncate">
+            <span className="font-script-poetry text-[11px] sm:text-xs text-[#7A5E16] tracking-wide truncate">
               Encouraging Poetics
             </span>
           </div>
@@ -73,7 +73,7 @@ export function Navbar() {
           <span className="font-serif-luxury italic truncate">
             &ldquo;The Lord is my shepherd, I lack nothing&rdquo;
           </span>
-          <span className="text-[10px] text-[#C9A44C] font-mono font-semibold uppercase tracking-wider shrink-0">
+          <span className="text-[10px] text-[#7A5E16] font-mono font-semibold uppercase tracking-wider shrink-0">
             Ps 23:1
           </span>
         </div>
@@ -138,7 +138,7 @@ export function Navbar() {
                 <p className="font-serif-luxury italic text-xs text-[#193323]">
                   &ldquo;The Lord is my shepherd, I lack nothing&rdquo;
                 </p>
-                <p className="text-[10px] text-[#C9A44C] font-semibold mt-1">
+                <p className="text-[10px] text-[#7A5E16] font-semibold mt-1">
                   Psalm 23:1 NIV
                 </p>
               </div>
@@ -155,7 +155,7 @@ export function Navbar() {
                     }`}
                   >
                     <span>{link.name}</span>
-                    <span className="text-[#C9A44C]">→</span>
+                    <span className="text-[#7A5E16]">→</span>
                   </Link>
                 );
               })}

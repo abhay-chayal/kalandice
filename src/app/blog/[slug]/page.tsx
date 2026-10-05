@@ -9,6 +9,8 @@ import { CmsImage } from "@/components/CmsImage";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
 import { getPostBySlug, getPublishedPosts } from "@/lib/content/queries";
 import { formatDate, parseContent, readTime } from "@/lib/content/format";
+import { articleSchema, pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 
 export const revalidate = 3600;
 
@@ -22,20 +24,16 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) return { title: "Devotional not found" };
-  return {
+  if (!post) return { title: "Devotional not found", robots: { index: false, follow: true } };
+
+  return pageMetadata({
     title: post.title,
     description: post.excerpt,
-    alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: {
-      type: "article",
-      title: post.title,
-      description: post.excerpt,
-      publishedTime: post.published_at ?? undefined,
-      authors: ["Kalandice Thomas"],
-      ...(post.cover_image ? { images: [post.cover_image] } : {}),
-    },
-  };
+    path: `/blog/${post.slug}`,
+    image: post.cover_image,
+    type: "article",
+    publishedTime: post.published_at,
+  });
 }
 
 export default async function BlogPostDetailPage({ params }: Props) {
@@ -47,6 +45,7 @@ export default async function BlogPostDetailPage({ params }: Props) {
 
   return (
     <main className="relative min-h-screen bg-[#FAF7F2] text-[#1C2620]">
+      <JsonLd data={articleSchema(post)} />
       <AmbientCanvas />
       <Navbar />
 

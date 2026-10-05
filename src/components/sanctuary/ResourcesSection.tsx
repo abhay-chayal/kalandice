@@ -82,7 +82,7 @@ export function ResourcesSection({ resources }: { resources: ResourceGroups }) {
                   className="p-5 rounded-2xl bg-white border border-[#5F8067]/15 hover:border-[#193323] hover:shadow-md transition-all flex flex-col justify-between group"
                 >
                   <div>
-                    <span className="px-2.5 py-0.5 rounded-md bg-[#193323]/5 text-[10px] font-semibold text-[#5F8067]">
+                    <span className="px-2.5 py-0.5 rounded-md bg-[#193323]/5 text-[10px] font-semibold text-[#4A6B52]">
                       {res.tag || "Resource"}
                     </span>
                     <h4 className="font-serif-luxury text-sm font-bold text-[#193323] mt-2 mb-1 group-hover:text-[#5F8067] transition-colors">

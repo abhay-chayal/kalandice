@@ -67,7 +67,7 @@ select * from (values
     'Encouraging Poetics',
     'By Kalandice Thomas',
     $t$Living in this world can be precarious. Encouraging Poetics is a published collection of heartfelt poetry written to walk with you through seasons of anxiety, fear, worry, stress, depression, waiting, and navigating love. Each poem opens your heart and eyes to the unending, unwavering love Jesus has for you.$t$,
-    $t$The Lord is my shepherd, I lack nothing — Psalms 23:1 NIV$t$,
+    $t$The Lord is my shepherd, I lack nothing — Psalm 23:1 NIV$t$,
     '/images/book-cover.webp',
     'https://a.co/d/07wOG0Ln',
     'Buy Paperback on Amazon',

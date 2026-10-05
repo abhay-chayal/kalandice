@@ -24,7 +24,7 @@ export function FacebookIcon({ className = "w-5 h-5" }: { className?: string }) 
   );
 }
 
-export function ContactFooter() {
+export function ContactFooter({ showContactBlock = true }: { showContactBlock?: boolean } = {}) {
   const [copied, setCopied] = useState(false);
   const email = CONTACT_EMAIL;
 
@@ -38,7 +38,8 @@ export function ContactFooter() {
     <footer id="contact" className="bg-[#112418] text-[#FAF7F2] pt-20 pb-12 px-4 sm:px-6 lg:px-8 border-t border-[#C9A44C]/20 relative">
       <div className="max-w-7xl mx-auto">
         
-        {/* Contact Section Box */}
+        {/* Contact Section Box — hidden on /contact, which has its own */}
+        {showContactBlock && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
           
           {/* Left Column: Author Contact Info */}
@@ -126,13 +127,14 @@ export function ContactFooter() {
           </div>
 
         </div>
+        )}
 
         {/* Footer Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8CA793]">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-[#C9A44C]" />
             <span className="font-serif-luxury italic text-white">
-              &ldquo;The Lord is My Shepherd I Lack Nothing&rdquo; — Psalms 23:1 NIV
+              &ldquo;The Lord is my shepherd, I lack nothing&rdquo; — Psalm 23:1 NIV
             </span>
           </div>
 

@@ -41,7 +41,7 @@ export function BlogIndexView({ posts }: { posts: Post[] }) {
           <h1 className="font-serif-luxury text-4xl sm:text-6xl font-bold text-[#193323]">
             Encouraging Words &amp; Devotionals
           </h1>
-          <p className="font-script-poetry text-2xl sm:text-3xl text-[#C9A44C]">
+          <p className="font-script-poetry text-2xl sm:text-3xl text-[#7A5E16]">
             Monthly essays on faith, grace, and creative quiet hours.
           </p>
 

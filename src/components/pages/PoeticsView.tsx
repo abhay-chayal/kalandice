@@ -22,7 +22,7 @@ interface Poem {
 const poemsLibrary: Poem[] = [
   {
     id: "p1",
-    title: "Quiet waters of Psalms 23",
+    title: "Quiet waters of Psalm 23",
     category: "Healing & Peace",
     excerpt: "When the noise of the world grows loud and deep, He leads my heart to quiet streams...",
     fullContent: [
@@ -155,7 +155,7 @@ export function PoeticsView() {
           <h1 className="font-serif-luxury text-4xl sm:text-6xl font-bold text-[#193323]">
             The Encouraging Poetics Library
           </h1>
-          <p className="font-script-poetry text-2xl sm:text-3xl text-[#C9A44C]">
+          <p className="font-script-poetry text-2xl sm:text-3xl text-[#7A5E16]">
             One Poem At A Time.
           </p>
 
@@ -210,7 +210,7 @@ export function PoeticsView() {
                     <button
                       onClick={(e) => toggleSave(poem.id, e)}
                       className={`p-1.5 rounded-full transition-colors ${
-                        isSaved ? "bg-[#C9A44C]/20 text-[#C9A44C]" : "text-[#536458] hover:bg-[#193323]/5"
+                        isSaved ? "bg-[#C9A44C]/20 text-[#7A5E16]" : "text-[#536458] hover:bg-[#193323]/5"
                       }`}
                     >
                       <Bookmark className={`w-4 h-4 ${isSaved ? "fill-[#C9A44C]" : ""}`} />
@@ -227,7 +227,7 @@ export function PoeticsView() {
                 </div>
 
                 <div className="pt-3 border-t border-[#5F8067]/10 flex items-center justify-between text-xs text-[#193323] font-medium">
-                  <span className="flex items-center gap-1 text-[#C9A44C]">
+                  <span className="flex items-center gap-1 text-[#7A5E16]">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>Focus Sanctuary View</span>
                   </span>
@@ -278,14 +278,14 @@ export function PoeticsView() {
               </div>
 
               <div className="p-4 rounded-2xl bg-[#193323]/5 border border-[#5F8067]/15 space-y-1">
-                <p className="text-xs uppercase tracking-wider text-[#C9A44C] font-semibold">🌱 Quiet Reflection Prompt:</p>
+                <p className="text-xs uppercase tracking-wider text-[#7A5E16] font-semibold">🌱 Quiet Reflection Prompt:</p>
                 <p className="text-sm text-[#193323] font-medium">{activePoem.reflection}</p>
               </div>
 
               <div className="p-4 rounded-2xl bg-[#193323] text-[#FAF7F2] space-y-1">
-                <p className="text-xs uppercase tracking-wider text-[#C9A44C] font-semibold">✨ Daily Affirmation:</p>
+                <p className="text-xs uppercase tracking-wider text-[#7A5E16] font-semibold">✨ Daily Affirmation:</p>
                 <p className="font-serif-luxury text-sm text-white">{activePoem.affirmation}</p>
-                <p className="text-[11px] text-[#C9A44C] font-mono mt-1">{activePoem.scripture}</p>
+                <p className="text-[11px] text-[#7A5E16] font-mono mt-1">{activePoem.scripture}</p>
               </div>
 
               <div className="flex items-center justify-between pt-2">

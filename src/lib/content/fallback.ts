@@ -113,7 +113,7 @@ export const fallbackBooks: Book[] = [
     subtitle: "By Kalandice Thomas",
     description:
       "Living in this world can be precarious. Encouraging Poetics is a published collection of heartfelt poetry written to walk with you through seasons of anxiety, fear, worry, stress, depression, waiting, and navigating love. Each poem opens your heart and eyes to the unending, unwavering love Jesus has for you.",
-    scripture: "The Lord is my shepherd, I lack nothing — Psalms 23:1 NIV",
+    scripture: "The Lord is my shepherd, I lack nothing — Psalm 23:1 NIV",
     cover_image: "/images/book-cover.webp",
     buy_url: "https://a.co/d/07wOG0Ln",
     buy_label: "Buy Paperback on Amazon",

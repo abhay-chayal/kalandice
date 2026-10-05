@@ -12,8 +12,15 @@ import { TestimonialsSection } from "@/components/sanctuary/TestimonialsSection"
 import { NewsletterSection } from "@/components/sanctuary/NewsletterSection";
 import { ContactFooter } from "@/components/sanctuary/ContactFooter";
 import { getFeaturedBook, getResources, getTestimonials, getUpcomingEvents } from "@/lib/content/queries";
+import { pageMetadata, personSchema, websiteSchema } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+export const metadata: Metadata = pageMetadata({
+  title: "Kalandice Thomas | Encouraging Poetics - Digital Sanctuary",
+  description:
+    "A place of peace, hope, healing and encouragement from author Kalandice Thomas. Finding Hope. Healing Through Faith. One Poem At A Time.",
+  path: "/",
+});
 
 // Cached and refreshed hourly; saving in the admin dashboard refreshes it immediately.
 export const revalidate = 3600;
@@ -28,6 +35,8 @@ export default async function Home() {
 
   return (
     <main className="relative min-h-screen bg-[#FAF7F2] text-[#1C2620]">
+      <JsonLd data={[websiteSchema(), personSchema()]} />
+
       {/* GPU Accelerated Sunbeam & Foliage Particle Canvas */}
       <AmbientCanvas />
 

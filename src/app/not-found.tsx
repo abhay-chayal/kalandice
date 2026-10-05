@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Navbar } from "@/components/sanctuary/Navbar";
 import { ContactFooter } from "@/components/sanctuary/ContactFooter";
 import { Compass } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  description: "This page doesn't exist. Find your way back to poems, devotionals and encouragement.",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (
