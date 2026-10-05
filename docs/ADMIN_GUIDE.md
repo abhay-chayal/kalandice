@@ -4,7 +4,7 @@ Hi Kalandice! This guide shows you how to update your website yourself. Nothing 
 break the site. If you're ever unsure, save something as a **Draft** first, because drafts are
 invisible to visitors.
 
-**Dashboard address:** `https://YOUR-DOMAIN/admin`
+**Dashboard address:** `https://encouragingpoetics.com/admin`
 
 ---
 
